@@ -1,0 +1,37 @@
+// MARK: - Imports
+
+import UIKit
+
+// MARK: - MWPallete
+
+final class MWPallete {
+    private init() {}
+    static func getColor(named name: String) -> UIColor {
+        if let color = UIColor(named: name) {
+            return color
+        }
+        return UIColor()
+    }
+    
+    // MARK: - Auth Section
+    
+    /// Use for parrent view background
+    static let authBackground = getColor(named: "AuthBG")
+    
+    /// Use for all buttons / Logos and all active elements
+    static let authButtonsBackground = getColor(named: "AuthButtonsBg")
+    
+    /// Use for auth actions view forms
+    static let authFiguresBackgroundActive = getColor(named: "ShapeViewActive")
+    
+    // MARK: - Main UI
+    
+    static let mainBackground = getColor(named: "background")
+    
+    static let activeText = getColor(named: "textActive")
+    
+    static let inactiveText = getColor(named: "textIncattive")
+    
+    /// Use for underline view (for current selected view)
+    static let underlineView = getColor(named: "UnderlineBg")
+}
