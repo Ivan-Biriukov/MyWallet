@@ -37,7 +37,6 @@ final class AuthentificationView: UIView {
         let logo = UIImageView()
         logo.clipsToBounds = true
         logo.contentMode = .scaleToFill
-        logo.backgroundColor = .red
         return logo
     }()
     
@@ -65,11 +64,12 @@ final class AuthentificationView: UIView {
         ),
         style: .leftUpperCorner,
         styleProperties: .init(
-            fillColor: MWPallete.authFiguresBackgroundActive.cgColor
+            fillColor: UIColor.systemGray4.cgColor
         )
     )
-
     
+    private lazy var actionButton = MainButton()
+
     // MARK: - Init
     
     init() {
@@ -91,7 +91,7 @@ private extension AuthentificationView {
     // MARK: - .addSubviews()
     
     func addSUbviews() {
-        [logoImage, logoLabel, loginRightBubbleView, loginLeftBubbleView].forEach({self.addSubview($0)})
+        [logoImage, logoLabel, loginRightBubbleView, loginLeftBubbleView, actionButton].forEach({self.addSubview($0)})
     }
     
     // MARK: - .setupConstraints()
@@ -107,12 +107,16 @@ private extension AuthentificationView {
             make.directionalHorizontalEdges.equalToSuperview()
             make.top.equalTo(logoImage.snp.bottom).offset(Constants.logoLabelTopOfsets)
         }
+        
+        actionButton.snp.makeConstraints { make in
+            make.top.equalTo(loginLeftBubbleView.snp.bottom).inset(15)
+            make.centerX.equalToSuperview()
+        }
     }
     
     // MARK: - .configure()
     
     func configure() {
-        backgroundColor = MWPallete.authBackground
         loginRightBubbleView.transform = CGAffineTransform(scaleX: -1, y: 1)
     }
 }
@@ -121,10 +125,16 @@ private extension AuthentificationView {
 
 extension AuthentificationView: ViewModelConfigurable {
     struct ViewModel {
-        let property: Int
+        let backgroundColor: UIColor
+        let logoImage: UIImage
+        let logoLabel: TextView.ViewModel
+        let actionButton: MainButton.ViewModel
     }
     
     func configure(with viewModel: ViewModel) {
-        
+        self.backgroundColor = viewModel.backgroundColor
+        self.logoImage.image = viewModel.logoImage
+        self.logoLabel.configure(with: viewModel.logoLabel)
+        self.actionButton.configure(with: viewModel.actionButton)
     }
 }

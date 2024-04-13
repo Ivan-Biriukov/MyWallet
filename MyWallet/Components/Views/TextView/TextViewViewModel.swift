@@ -11,6 +11,7 @@ extension TextView {
        let isShadowed: Bool
        let isMultiline: Bool
        let insets: UIEdgeInsets
+       let aligment: NSTextAlignment
        
        init(
            style: Style,
@@ -19,7 +20,8 @@ extension TextView {
            backgroundColor: UIColor = .clear,
            isShadowed: Bool,
            isMultiline: Bool = true,
-           insets: UIEdgeInsets = .zero
+           insets: UIEdgeInsets = .zero,
+           aligment: NSTextAlignment = .center
        ) {
            self.style = style
            self.text = text
@@ -28,6 +30,7 @@ extension TextView {
            self.backgroundColor = backgroundColor
            self.isMultiline = isMultiline
            self.insets = insets
+           self.aligment = aligment
        }
    }
 }

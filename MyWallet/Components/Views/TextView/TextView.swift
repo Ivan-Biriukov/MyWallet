@@ -75,6 +75,7 @@ extension TextView: ViewModelConfigurable {
        self.label.backgroundColor = viewModel.backgroundColor
        self.isShadowed = viewModel.isShadowed
        self.isMultiline = viewModel.isMultiline
+       self.label.textAlignment = viewModel.aligment
        placeLabel(with: viewModel.insets)
    }
 }

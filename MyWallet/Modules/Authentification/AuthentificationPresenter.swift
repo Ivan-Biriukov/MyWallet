@@ -27,6 +27,26 @@ final class AuthentificationPresenter {
 
 extension AuthentificationPresenter: PresentsAuthentificationInfo {
     func presentInitialData() {
-        //viewController?.displayInitionalData(viewModel: <#T##AuthentificationView.ViewModel#>)
+        viewController?.displayInitionalData(viewModel:
+                .init(
+                    backgroundColor: MWPallete.authBackground,
+                    logoImage: MWImageAssets.logoImage,
+                    logoLabel: .init(
+                        style: .bold(size: 20),
+                        text: "All discounts in one place",
+                        textColor: MWPallete.activeText,
+                        isShadowed: false
+                    ),
+                    actionButton: .init(
+                        title: "LOGIN",
+                        backgroundColor: MWPallete.authButtonsBackground,
+                        textColorEnable: MWPallete.activeText,
+                        font: MWFonts.bold20,
+                        cornerRadius: 20,
+                        height: 45,
+                        width: 180
+                    )
+                )
+        )
     }
 }

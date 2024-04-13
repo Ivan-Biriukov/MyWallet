@@ -32,6 +32,9 @@
 		57D6785A2BC9F55400B6E132 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678592BC9F55400B6E132 /* TextView.swift */; };
 		57D6785D2BC9F68A00B6E132 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 57D6785C2BC9F68A00B6E132 /* SnapKit */; };
 		57D678602BC9F70F00B6E132 /* TextViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6785F2BC9F70F00B6E132 /* TextViewViewModel.swift */; };
+		57D678642BCA8B1100B6E132 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678632BCA8B1100B6E132 /* MainButton.swift */; };
+		57D678662BCA8B8A00B6E132 /* MainButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678652BCA8B8A00B6E132 /* MainButtonViewModel.swift */; };
+		57D678692BCA8C4500B6E132 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678682BCA8C4500B6E132 /* String+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +64,9 @@
 		57D678572BC9F3FC00B6E132 /* MWImageAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWImageAssets.swift; sourceTree = "<group>"; };
 		57D678592BC9F55400B6E132 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		57D6785F2BC9F70F00B6E132 /* TextViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewViewModel.swift; sourceTree = "<group>"; };
+		57D678632BCA8B1100B6E132 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
+		57D678652BCA8B8A00B6E132 /* MainButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonViewModel.swift; sourceTree = "<group>"; };
+		57D678682BCA8C4500B6E132 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 				57BBF7CF2BAF43BE007EC31E /* Components */,
 				57BBF7DF2BAF46DF007EC31E /* Services */,
 				57BBF7D12BAF43FC007EC31E /* Protocols */,
+				57D678672BCA8C2900B6E132 /* Extensions */,
 				57BBF7CD2BAF4341007EC31E /* App */,
 			);
 			path = MyWallet;
@@ -124,6 +131,7 @@
 		57BBF7CF2BAF43BE007EC31E /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				57D678612BCA8AE600B6E132 /* Buttons */,
 				57D678502BC5FCC200B6E132 /* Views */,
 				57BBF7E02BAF4919007EC31E /* SharedModels */,
 				57BBF7DC2BAF46B6007EC31E /* Router */,
@@ -243,6 +251,31 @@
 			path = TextView;
 			sourceTree = "<group>";
 		};
+		57D678612BCA8AE600B6E132 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				57D678622BCA8AEF00B6E132 /* MainButton */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		57D678622BCA8AEF00B6E132 /* MainButton */ = {
+			isa = PBXGroup;
+			children = (
+				57D678632BCA8B1100B6E132 /* MainButton.swift */,
+				57D678652BCA8B8A00B6E132 /* MainButtonViewModel.swift */,
+			);
+			path = MainButton;
+			sourceTree = "<group>";
+		};
+		57D678672BCA8C2900B6E132 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				57D678682BCA8C4500B6E132 /* String+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -323,8 +356,10 @@
 			files = (
 				57D678562BC9D14E00B6E132 /* MWFonts.swift in Sources */,
 				57D6784D2BC5F5F400B6E132 /* AuthentificationRoutes.swift in Sources */,
+				57D678642BCA8B1100B6E132 /* MainButton.swift in Sources */,
 				57BBF7DA2BAF46AA007EC31E /* TabBarViewContoller.swift in Sources */,
 				57D678542BC9CD1A00B6E132 /* MWPallete.swift in Sources */,
+				57D678662BCA8B8A00B6E132 /* MainButtonViewModel.swift in Sources */,
 				57BBF7D62BAF4693007EC31E /* Factory.swift in Sources */,
 				57D678492BC5CF5000B6E132 /* AuthentificationInteractor.swift in Sources */,
 				57D6784B2BC5F29C00B6E132 /* AuthentificationPresenter.swift in Sources */,
@@ -338,6 +373,7 @@
 				57BBF7BA2BAF430E007EC31E /* AppDelegate.swift in Sources */,
 				57D678452BC5C7AD00B6E132 /* ViewModelConfigurable.swift in Sources */,
 				57BBF7DB2BAF46AA007EC31E /* TabBarFactory.swift in Sources */,
+				57D678692BCA8C4500B6E132 /* String+Extensions.swift in Sources */,
 				57D6785A2BC9F55400B6E132 /* TextView.swift in Sources */,
 				57D678602BC9F70F00B6E132 /* TextViewViewModel.swift in Sources */,
 				57BBF7BC2BAF430E007EC31E /* SceneDelegate.swift in Sources */,
