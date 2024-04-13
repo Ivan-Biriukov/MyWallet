@@ -12,6 +12,8 @@ public final class MWFonts {
         return .systemFont(ofSize: ofsize, weight: weight)
     }
     
+    static let bold30 = getFont(ofsize: 30, weight: .bold)
+    
     /// User for Titles
     static let bold20 = getFont(ofsize: 20, weight: .bold)
     
