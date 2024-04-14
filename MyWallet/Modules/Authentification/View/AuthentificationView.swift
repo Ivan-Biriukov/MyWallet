@@ -102,6 +102,18 @@ final class AuthentificationView: UIView {
     private lazy var loginActionButton = MainButton()
     private lazy var registerActionButton = MainButton()
     private lazy var bottomSectionSeparater = SeparateView()
+    
+    private lazy var googleButton = ImageButton()
+    private lazy var appleButton = ImageButton()
+    
+    private lazy var socialButtonsStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [googleButton, appleButton])
+        stack.axis = .horizontal
+        stack.distribution = .fill
+        stack.spacing = 30
+        
+        return stack
+    }()
 
     // MARK: - Init
     
@@ -124,7 +136,7 @@ private extension AuthentificationView {
     // MARK: - .addSubviews()
     
     func addSUbviews() {
-        [logoImage, logoLabel, loginRightBubbleView, loginLeftBubbleView, bottomSectionSeparater].forEach({self.addSubview($0)})
+        [logoImage, logoLabel, loginRightBubbleView, loginLeftBubbleView, bottomSectionSeparater, socialButtonsStack].forEach({self.addSubview($0)})
         
         [leftLoginBubbleActionTitle, leftBubbleLoginField, leftBubblePasswordField, passwordRecoveryButton, loginActionButton].forEach({loginLeftBubbleView.addSubview($0)})
         
@@ -191,6 +203,11 @@ private extension AuthentificationView {
             make.bottom.equalToSuperview().inset(80)
             make.centerX.equalToSuperview()
         }
+        
+        socialButtonsStack.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(35)
+        }
     }
     
     // MARK: - .configure()
@@ -243,6 +260,7 @@ extension AuthentificationView: ViewModelConfigurable {
         let leftBubbleViewModel: BubbleViewModel
         let rightBubbleViewModel: BubbleViewModel
         let separaterViewModel: SeparateView.ViewModel
+        let socialButtons: [ImageButton.ViewModel]
     }
     
     struct BubbleViewModel {
@@ -270,7 +288,7 @@ extension AuthentificationView: ViewModelConfigurable {
         self.rightBubblePasswordReplayField.configure(with: viewModel.rightBubbleViewModel.textfields[3])
         
         self.bottomSectionSeparater.configure(with: viewModel.separaterViewModel)
-        
-      
+        self.googleButton.configure(with: viewModel.socialButtons[0])
+        self.appleButton.configure(with: viewModel.socialButtons[1])
     }
 }

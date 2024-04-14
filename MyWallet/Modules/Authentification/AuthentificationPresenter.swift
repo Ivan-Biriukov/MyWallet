@@ -244,7 +244,24 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
                         spaceBetweenComponents: 15,
                         width: MWSizeHelper.getScreenWidth() - 80,
                         height: 18
-                    )
+                    ),
+                    socialButtons: [
+                        .init(
+                            image: MWImageAssets.getScaledImage(
+                                named: "googleIcon",
+                                width: 30,
+                                height: 30)
+                            ,
+                            size: CGSize(width: 30, height: 30)
+                        ),
+                        .init(
+                            image: MWImageAssets.getScaledImage(
+                                named: "appleIcon",
+                                width: 30,
+                                height: 30
+                            ), size: CGSize(width: 30, height: 30)
+                        )
+                    ]
                 )
         )
     }

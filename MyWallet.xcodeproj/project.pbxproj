@@ -39,6 +39,7 @@
 		57D6786E2BCABDBA00B6E132 /* TextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6786D2BCABDBA00B6E132 /* TextFieldViewModel.swift */; };
 		57D678702BCC598200B6E132 /* SeparateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6786F2BCC598200B6E132 /* SeparateView.swift */; };
 		57D678722BCC867E00B6E132 /* MWSizeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678712BCC867E00B6E132 /* MWSizeHelper.swift */; };
+		57D678752BCC8BA800B6E132 /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678742BCC8BA800B6E132 /* ImageButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		57D6786D2BCABDBA00B6E132 /* TextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewModel.swift; sourceTree = "<group>"; };
 		57D6786F2BCC598200B6E132 /* SeparateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparateView.swift; sourceTree = "<group>"; };
 		57D678712BCC867E00B6E132 /* MWSizeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWSizeHelper.swift; sourceTree = "<group>"; };
+		57D678742BCC8BA800B6E132 /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +267,7 @@
 		57D678612BCA8AE600B6E132 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				57D678732BCC8B8B00B6E132 /* ImageButton */,
 				57D678622BCA8AEF00B6E132 /* MainButton */,
 			);
 			path = Buttons;
@@ -294,6 +297,14 @@
 				57D6786D2BCABDBA00B6E132 /* TextFieldViewModel.swift */,
 			);
 			path = TextFields;
+			sourceTree = "<group>";
+		};
+		57D678732BCC8B8B00B6E132 /* ImageButton */ = {
+			isa = PBXGroup;
+			children = (
+				57D678742BCC8BA800B6E132 /* ImageButton.swift */,
+			);
+			path = ImageButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,6 +396,7 @@
 				57D678492BC5CF5000B6E132 /* AuthentificationInteractor.swift in Sources */,
 				57D6784B2BC5F29C00B6E132 /* AuthentificationPresenter.swift in Sources */,
 				57D6786E2BCABDBA00B6E132 /* TextFieldViewModel.swift in Sources */,
+				57D678752BCC8BA800B6E132 /* ImageButton.swift in Sources */,
 				57D678422BC5BD4200B6E132 /* AuthentificationView.swift in Sources */,
 				57D678522BC5FCD900B6E132 /* ShapeView.swift in Sources */,
 				57BBF7E22BAF4933007EC31E /* SharedCardModel.swift in Sources */,
