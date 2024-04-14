@@ -6,6 +6,8 @@ import UIKit
 
 protocol DisplayAuthentification: AnyObject {
     func displayInitionalData(viewModel: AuthentificationView.ViewModel)
+    func moveRegisterToFront()
+    func moveLoginToFront()
 }
 
 // MARK: - AuthentificationViewController
@@ -43,5 +45,13 @@ final class AuthentificationViewController: UIViewController {
 extension AuthentificationViewController: DisplayAuthentification {
     func displayInitionalData(viewModel: AuthentificationView.ViewModel) {
         contentView.configure(with: viewModel)
+    }
+    
+    func moveLoginToFront() {
+        contentView.bringLoginBubleToFront()
+    }
+    
+    func moveRegisterToFront() {
+        contentView.bringRegisterBubleToFront()
     }
 }

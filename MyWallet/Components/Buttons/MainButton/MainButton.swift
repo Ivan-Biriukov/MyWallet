@@ -22,6 +22,8 @@ final class MainButton: UIControl {
             updateColor()
         }
     }
+    
+    private var action: (()->Void)?
         
     //MARK: - UI
     
@@ -61,6 +63,7 @@ final class MainButton: UIControl {
     func configure(with viewModel: ViewModel) {
         self.viewModel = viewModel
         stackView.layer.cornerRadius = viewModel.cornerRadius
+        self.action = viewModel.action
         
         if let attributedTitle = viewModel.attributedTitle {
             nameButtonLabel.attributedText = attributedTitle
@@ -114,6 +117,7 @@ private extension MainButton {
     // MARK: Actions
     
     @objc func buttonPressed() {
-       
+       action?()
+        debugPrint("Action called from MainButton Class")
     }
 }

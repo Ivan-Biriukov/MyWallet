@@ -17,6 +17,7 @@ extension MainButton: ViewModelConfigurable {
         let cornerRadius: CGFloat
         let height: CGFloat
         let width: CGFloat?
+        var action: (()->Void)?
         
         public init(
             title: String = .empty,
@@ -29,7 +30,8 @@ extension MainButton: ViewModelConfigurable {
             insets: UIEdgeInsets = .zero,
             cornerRadius: CGFloat = 0,
             height: CGFloat = 0,
-            width: CGFloat? = nil
+            width: CGFloat? = nil,
+            action: (()->Void)? = nil
         ) {
             self.title = title
             self.attributedTitle = attributedTitle
@@ -42,6 +44,7 @@ extension MainButton: ViewModelConfigurable {
             self.cornerRadius = cornerRadius
             self.height = height
             self.width = width
+            self.action = action
         }
     }
 }

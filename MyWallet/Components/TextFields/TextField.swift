@@ -31,7 +31,6 @@ final class TextField: UIView{
         return view
     }()
         
-    private var textAttributes: NSAttributedString?
     private var placeholderAttributes: NSAttributedString?
     
     // MARK: - Methods
@@ -82,13 +81,11 @@ final class TextField: UIView{
 extension TextField: ViewModelConfigurable  {
     
     public func configure(with viewModel: ViewModel) {
-        textField.attributedText = viewModel.mainTextAttributes
         textField.attributedPlaceholder = viewModel.placeholderAttributes
         self.backgroundColor = viewModel.backgroundColor
         self.layer.cornerRadius = viewModel.cornerRaduis
         self.layer.borderWidth = viewModel.borderWidth
         self.layer.borderColor = viewModel.borderColor
-        textAttributes = viewModel.mainTextAttributes
         placeholderAttributes = viewModel.placeholderAttributes
         textField.keyboardType = viewModel.keyboardType
         
@@ -109,10 +106,28 @@ extension TextField: ViewModelConfigurable  {
             }
             setRightViewPaddings(with: rightViewPaddings)
         }
-
-        applyStyle(viewModel.style)
         
-        if viewModel.style == .underLined {
+        applyStyle(viewModel.style, viewModel: viewModel)
+    
+        
+        layoutIfNeeded()
+    }
+}
+
+// MARK: private methods
+
+private extension TextField {
+    func applyStyle(_ style: Style, viewModel: ViewModel) {
+        textField.font = viewModel.mainTextAttributes?.font
+        textField.textColor = viewModel.mainTextAttributes?.textColor
+        
+        switch style {
+        case .basic:
+            self.layer.borderColor = viewModel.borderColor
+            self.layer.borderWidth = viewModel.borderWidth
+            self.layer.cornerRadius = viewModel.cornerRaduis
+            
+        case .underLined:
             addSubview(underlineView)
             
             guard let underlineData = viewModel.underlineModel else {
@@ -126,22 +141,6 @@ extension TextField: ViewModelConfigurable  {
                 make.width.equalToSuperview()
                 make.bottom.equalToSuperview()
             }
-        }
-        
-        layoutIfNeeded()
-    }
-}
-
-// MARK: private methods
-
-private extension TextField {
-    func applyStyle(_ style: Style) {
-        switch style {
-        case .basic:
-            textField.isSecureTextEntry = false
-            textField.isUserInteractionEnabled = true
-        case .underLined:
-            print(123)
         }
     }
 
@@ -179,7 +178,7 @@ private extension TextField {
         let stack: UIStackView = {
             let stack = UIStackView(arrangedSubviews: [imageView, spaceView])
             stack.axis = .horizontal
-            stack.contentMode = .scaleAspectFit
+            stack.distribution = .fillEqually
             return stack
         }()
         
@@ -193,14 +192,14 @@ private extension TextField {
     
     func setRightViewButtonWithPaddings(paddings: CGFloat, buttonModel: RightViewButton) {
         textField.rightViewMode = .always
-        
+        textField.clearButtonMode = .never
         additionalButton.setImage(buttonModel.icon, for: .normal)
         let spaceView = UIView(frame: CGRect(origin: CGPoint(), size: CGSize(width: paddings, height: 0)))
         
         let rightStack: UIStackView = {
             let stack = UIStackView(arrangedSubviews: [additionalButton, spaceView])
             stack.axis = .horizontal
-            stack.contentMode = .scaleAspectFit
+            stack.distribution = .fillEqually
             return stack
         }()
         

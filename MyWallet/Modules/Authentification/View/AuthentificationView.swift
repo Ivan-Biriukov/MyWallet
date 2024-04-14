@@ -30,8 +30,10 @@ final class AuthentificationView: UIView {
         static let logoSize: CGFloat = UIScreen.main.bounds.height / 8.85
         static let logogImageTopInsets: CGFloat = -10
         static let logoLabelTopOfsets: CGFloat = 10
-        static let leftBubbleViewActionButtonTopInsets: CGFloat = 35
+        static let bubbleViewsActionButtonTopInsets: CGFloat = 35
         static let leftBubbleViewActionButtonLeadingInsets: CGFloat = 25
+        
+        static let rightBubbleViewActionButtonLeadingInsets: CGFloat = 15
     }
     
     // MARK: - Properties
@@ -76,7 +78,29 @@ final class AuthentificationView: UIView {
         )
     )
     
-    private lazy var actionButton = MainButton()
+    private lazy var rightBubbleActionTitle = MainButton()
+    private lazy var rightBubbleNameField = TextField()
+    private lazy var rightBubbleEmailField = TextField()
+    private lazy var rightBubblePasswordField = TextField()
+    private lazy var rightBubblePasswordReplayField = TextField()
+    
+    private lazy var rightBubbleFieldsStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [
+            rightBubbleNameField,
+            rightBubbleEmailField,
+            rightBubblePasswordField,
+            rightBubblePasswordReplayField
+        ])
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 20
+        
+        return stack
+    }()
+    
+    private lazy var loginActionButton = MainButton()
+    private lazy var registerActionButton = MainButton()
 
     // MARK: - Init
     
@@ -99,9 +123,11 @@ private extension AuthentificationView {
     // MARK: - .addSubviews()
     
     func addSUbviews() {
-        [logoImage, logoLabel, loginRightBubbleView, loginLeftBubbleView, actionButton].forEach({self.addSubview($0)})
+        [logoImage, logoLabel, loginRightBubbleView, loginLeftBubbleView].forEach({self.addSubview($0)})
         
-        [leftLoginBubbleActionTitle, leftBubbleLoginField, leftBubblePasswordField, passwordRecoveryButton].forEach({loginLeftBubbleView.addSubview($0)})
+        [leftLoginBubbleActionTitle, leftBubbleLoginField, leftBubblePasswordField, passwordRecoveryButton, loginActionButton].forEach({loginLeftBubbleView.addSubview($0)})
+        
+        [rightBubbleActionTitle, rightBubbleFieldsStack, registerActionButton].forEach({loginRightBubbleView.addSubview($0)})
     }
     
     // MARK: - .setupConstraints()
@@ -118,13 +144,18 @@ private extension AuthentificationView {
             make.top.equalTo(logoImage.snp.bottom).offset(Constants.logoLabelTopOfsets)
         }
         
-        actionButton.snp.makeConstraints { make in
+        loginActionButton.snp.makeConstraints { make in
             make.top.equalTo(loginLeftBubbleView.snp.bottom).inset(15)
             make.centerX.equalToSuperview()
         }
         
+        registerActionButton.snp.makeConstraints { make in
+            make.top.equalTo(loginRightBubbleView.snp.bottom).inset(15)
+            make.centerX.equalToSuperview()
+        }
+        
         leftLoginBubbleActionTitle.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Constants.leftBubbleViewActionButtonTopInsets)
+            make.top.equalToSuperview().inset(Constants.bubbleViewsActionButtonTopInsets)
             make.leading.equalToSuperview().inset(Constants.leftBubbleViewActionButtonLeadingInsets)
         }
         
@@ -144,12 +175,43 @@ private extension AuthentificationView {
             make.top.equalTo(leftBubblePasswordField.snp.bottom).offset(30)
             make.trailing.equalToSuperview().inset(25)
         }
+        
+        rightBubbleActionTitle.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(Constants.bubbleViewsActionButtonTopInsets)
+            make.leading.equalTo(loginRightBubbleView.snp.leading).offset(Constants.rightBubbleViewActionButtonLeadingInsets)
+        }
+        
+        rightBubbleFieldsStack.snp.makeConstraints { make in
+            make.top.equalTo(rightBubbleActionTitle.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(25)
+            //make.bottom.equalToSuperview().inset(20)
+        }
     }
     
     // MARK: - .configure()
     
     func configure() {
-        loginRightBubbleView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        [loginRightBubbleView,
+         rightBubbleActionTitle,
+         rightBubbleFieldsStack,
+         registerActionButton
+        ].forEach({$0.transform = CGAffineTransform(scaleX: -1, y: 1)})
+    }
+}
+
+// MARK: - Animated Button Actions
+
+extension AuthentificationView {
+    func bringLoginBubleToFront() {
+        UIView.animate(withDuration: 0.3) {
+            self.bringSubviewToFront(self.loginLeftBubbleView)
+        }
+    }
+    
+    func bringRegisterBubleToFront() {
+        UIView.animate(withDuration: 0.3) {
+            self.bringSubviewToFront(self.loginRightBubbleView)
+        }
     }
 }
 
@@ -161,8 +223,9 @@ extension AuthentificationView: ViewModelConfigurable {
         let backgroundColor: UIColor
         let logoImage: UIImage
         let logoLabel: TextView.ViewModel
-        let actionButton: MainButton.ViewModel
+        let actionButtons: [MainButton.ViewModel]
         let leftBubbleViewModel: BubbleViewModel
+        let rightBubbleViewModel: BubbleViewModel
     }
     
     struct BubbleViewModel {
@@ -175,10 +238,18 @@ extension AuthentificationView: ViewModelConfigurable {
         self.backgroundColor = viewModel.backgroundColor
         self.logoImage.image = viewModel.logoImage
         self.logoLabel.configure(with: viewModel.logoLabel)
-        self.actionButton.configure(with: viewModel.actionButton)
+        self.loginActionButton.configure(with: viewModel.actionButtons[0])
+        self.registerActionButton.configure(with: viewModel.actionButtons[1])
+        
         self.leftLoginBubbleActionTitle.configure(with: viewModel.leftBubbleViewModel.titleActionButton)
         self.leftBubbleLoginField.configure(with: viewModel.leftBubbleViewModel.textfields[0])
         self.leftBubblePasswordField.configure(with: viewModel.leftBubbleViewModel.textfields[1])
         self.passwordRecoveryButton.configure(with: viewModel.leftBubbleViewModel.additionalButtons![0])
+        
+        self.rightBubbleActionTitle.configure(with: viewModel.rightBubbleViewModel.titleActionButton)
+        self.rightBubbleNameField.configure(with: viewModel.rightBubbleViewModel.textfields[0])
+        self.rightBubbleEmailField.configure(with: viewModel.rightBubbleViewModel.textfields[1])
+        self.rightBubblePasswordField.configure(with: viewModel.rightBubbleViewModel.textfields[2])
+        self.rightBubblePasswordReplayField.configure(with: viewModel.rightBubbleViewModel.textfields[3])
     }
 }

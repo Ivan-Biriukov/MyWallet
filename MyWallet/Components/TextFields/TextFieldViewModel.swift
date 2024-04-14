@@ -19,7 +19,7 @@ extension TextField {
         let textfieldLeftPadding: CGFloat?
         let textfieldRightPadding: CGFloat?
         let placeholderAttributes: NSAttributedString?
-        let mainTextAttributes: NSAttributedString?
+        let mainTextAttributes: TextAtributes?
         let keyboardType: UIKeyboardType
         let leftInputViewImage: UIImage?
         let rightInputButton: RightViewButton?
@@ -40,7 +40,7 @@ extension TextField {
             textfieldLeftPadding: CGFloat? = 0,
             textfieldRightPadding: CGFloat? = nil,
             placeholderAttributes: NSAttributedString? = nil,
-            mainTextAttributes: NSAttributedString? = nil,
+            mainTextAttributes: TextAtributes? = nil,
             keyboardType: UIKeyboardType = .default,
             leftInputViewImage: UIImage? = nil,
             rightInputButton: RightViewButton? = nil,
@@ -85,5 +85,18 @@ extension TextField {
     struct  UnderlineViewModel {
         let height: CGFloat
         let color: UIColor
+    }
+    
+    struct TextAtributes {
+        let font: UIFont
+        let textColor: UIColor
+        
+        init(
+            font: UIFont = MWFonts.regular15,
+            textColor: UIColor = MWPallete.activeText
+        ) {
+            self.font = font
+            self.textColor = textColor
+        }
     }
 }
