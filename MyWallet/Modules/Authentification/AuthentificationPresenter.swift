@@ -24,6 +24,7 @@ final class AuthentificationPresenter {
 }
 
 // MARK: - PresentsAuthentificationInfo
+// TODO: - Добавить actions всем кнопкам + логика
 
 extension AuthentificationPresenter: PresentsAuthentificationInfo {
     func presentInitialData() {
@@ -45,8 +46,7 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
                             font: MWFonts.bold20,
                             cornerRadius: 20,
                             height: 45,
-                            width: 180,
-                            action: viewController?.moveLoginToFront
+                            width: 180
                         ),
                         .init(
                             title: "REGISTER",
@@ -55,8 +55,7 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
                             font: MWFonts.bold20,
                             cornerRadius: 20,
                             height: 45,
-                            width: 180,
-                            action: viewController?.moveRegisterToFront
+                            width: 180
                         ),
                     ],
                     leftBubbleViewModel: .init(
@@ -65,7 +64,8 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
                             backgroundColor: .clear,
                             textColorEnable: MWPallete.activeText,
                             font: MWFonts.bold30,
-                            height: 50
+                            height: 50,
+                            action: viewController?.moveLoginToFront
                         ),
                         textfields: [
                             .init(
@@ -131,7 +131,8 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
                             backgroundColor: .clear,
                             textColorEnable: MWPallete.inactiveText,
                             font: MWFonts.bold30,
-                            height: 50
+                            height: 50,
+                            action: viewController?.moveRegisterToFront
                         ),
                         textfields: [
                             .init(
@@ -228,6 +229,21 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
                             ),
                         ],
                         additionalButtons: []
+                    ),
+                    separaterViewModel: .init(
+                        textAttributes: .init(
+                            text: "OR",
+                            font: MWFonts.regular15,
+                            color: MWPallete.inactiveText
+                        ),
+                        separatesData: .init(
+                            lineHight: 2,
+                            lineColor: MWPallete.authButtonsBackground,
+                            cornerRadius: 0
+                        ),
+                        spaceBetweenComponents: 15,
+                        width: MWSizeHelper.getScreenWidth() - 80,
+                        height: 18
                     )
                 )
         )

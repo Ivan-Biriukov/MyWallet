@@ -25,6 +25,8 @@ struct StyleProperties {
 
 // MARK: - ShapeView
 
+// TODO: - Пофиксить отрисовку самой view. Нужно сделать, чтобы View.frame = UIBezierPath
+
 final class ShapeView: UIView {
 
     // MARK: - Private Properties

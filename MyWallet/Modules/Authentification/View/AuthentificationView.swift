@@ -101,6 +101,7 @@ final class AuthentificationView: UIView {
     
     private lazy var loginActionButton = MainButton()
     private lazy var registerActionButton = MainButton()
+    private lazy var bottomSectionSeparater = SeparateView()
 
     // MARK: - Init
     
@@ -123,7 +124,7 @@ private extension AuthentificationView {
     // MARK: - .addSubviews()
     
     func addSUbviews() {
-        [logoImage, logoLabel, loginRightBubbleView, loginLeftBubbleView].forEach({self.addSubview($0)})
+        [logoImage, logoLabel, loginRightBubbleView, loginLeftBubbleView, bottomSectionSeparater].forEach({self.addSubview($0)})
         
         [leftLoginBubbleActionTitle, leftBubbleLoginField, leftBubblePasswordField, passwordRecoveryButton, loginActionButton].forEach({loginLeftBubbleView.addSubview($0)})
         
@@ -184,7 +185,11 @@ private extension AuthentificationView {
         rightBubbleFieldsStack.snp.makeConstraints { make in
             make.top.equalTo(rightBubbleActionTitle.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(25)
-            //make.bottom.equalToSuperview().inset(20)
+        }
+        
+        bottomSectionSeparater.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(80)
+            make.centerX.equalToSuperview()
         }
     }
     
@@ -201,6 +206,7 @@ private extension AuthentificationView {
 
 // MARK: - Animated Button Actions
 
+// TODO: - Доработать красивую анимацию
 extension AuthentificationView {
     func bringLoginBubleToFront() {
         UIView.animate(withDuration: 0.3) {
@@ -209,9 +215,19 @@ extension AuthentificationView {
     }
     
     func bringRegisterBubleToFront() {
-        UIView.animate(withDuration: 0.3) {
-            self.bringSubviewToFront(self.loginRightBubbleView)
+//        UIView.animate(withDuration: 0.3) {
+//            self.bringSubviewToFront(self.loginRightBubbleView)
+//        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.loginRightBubbleView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2) // Эффект увеличения размера
+            self.loginRightBubbleView.layer.zPosition = 3 // Перемещаем на передний план
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5) {
+                self.loginRightBubbleView.transform = .identity // Возвращаем обычный размер
+            }
         }
+
     }
 }
 
@@ -226,6 +242,7 @@ extension AuthentificationView: ViewModelConfigurable {
         let actionButtons: [MainButton.ViewModel]
         let leftBubbleViewModel: BubbleViewModel
         let rightBubbleViewModel: BubbleViewModel
+        let separaterViewModel: SeparateView.ViewModel
     }
     
     struct BubbleViewModel {
@@ -251,5 +268,9 @@ extension AuthentificationView: ViewModelConfigurable {
         self.rightBubbleEmailField.configure(with: viewModel.rightBubbleViewModel.textfields[1])
         self.rightBubblePasswordField.configure(with: viewModel.rightBubbleViewModel.textfields[2])
         self.rightBubblePasswordReplayField.configure(with: viewModel.rightBubbleViewModel.textfields[3])
+        
+        self.bottomSectionSeparater.configure(with: viewModel.separaterViewModel)
+        
+      
     }
 }

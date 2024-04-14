@@ -37,6 +37,8 @@
 		57D678692BCA8C4500B6E132 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678682BCA8C4500B6E132 /* String+Extensions.swift */; };
 		57D6786C2BCABDA200B6E132 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6786B2BCABDA200B6E132 /* TextField.swift */; };
 		57D6786E2BCABDBA00B6E132 /* TextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6786D2BCABDBA00B6E132 /* TextFieldViewModel.swift */; };
+		57D678702BCC598200B6E132 /* SeparateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6786F2BCC598200B6E132 /* SeparateView.swift */; };
+		57D678722BCC867E00B6E132 /* MWSizeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678712BCC867E00B6E132 /* MWSizeHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +73,8 @@
 		57D678682BCA8C4500B6E132 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		57D6786B2BCABDA200B6E132 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		57D6786D2BCABDBA00B6E132 /* TextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewModel.swift; sourceTree = "<group>"; };
+		57D6786F2BCC598200B6E132 /* SeparateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparateView.swift; sourceTree = "<group>"; };
+		57D678712BCC867E00B6E132 /* MWSizeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWSizeHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +160,7 @@
 				57D678532BC9CD1A00B6E132 /* MWPallete.swift */,
 				57D678552BC9D14E00B6E132 /* MWFonts.swift */,
 				57D678572BC9F3FC00B6E132 /* MWImageAssets.swift */,
+				57D678712BCC867E00B6E132 /* MWSizeHelper.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				57D678512BC5FCD900B6E132 /* ShapeView.swift */,
+				57D6786F2BCC598200B6E132 /* SeparateView.swift */,
 				57D6785E2BC9F6FB00B6E132 /* TextView */,
 			);
 			path = Views;
@@ -387,6 +393,8 @@
 				57D678582BC9F3FC00B6E132 /* MWImageAssets.swift in Sources */,
 				57D678472BC5C96600B6E132 /* AuthentificationViewController.swift in Sources */,
 				57BBF7BA2BAF430E007EC31E /* AppDelegate.swift in Sources */,
+				57D678722BCC867E00B6E132 /* MWSizeHelper.swift in Sources */,
+				57D678702BCC598200B6E132 /* SeparateView.swift in Sources */,
 				57D678452BC5C7AD00B6E132 /* ViewModelConfigurable.swift in Sources */,
 				57BBF7DB2BAF46AA007EC31E /* TabBarFactory.swift in Sources */,
 				57D678692BCA8C4500B6E132 /* String+Extensions.swift in Sources */,
