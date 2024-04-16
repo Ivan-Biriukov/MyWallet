@@ -25,9 +25,21 @@
 		57D6784B2BC5F29C00B6E132 /* AuthentificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6784A2BC5F29C00B6E132 /* AuthentificationPresenter.swift */; };
 		57D6784D2BC5F5F400B6E132 /* AuthentificationRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6784C2BC5F5F400B6E132 /* AuthentificationRoutes.swift */; };
 		57D6784F2BC5F66B00B6E132 /* AuthentificationFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6784E2BC5F66B00B6E132 /* AuthentificationFabric.swift */; };
-		57D678522BC5FCD900B6E132 /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678512BC5FCD900B6E132 /* ShapeView.swift */; };
 		57D678542BC9CD1A00B6E132 /* MWPallete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678532BC9CD1A00B6E132 /* MWPallete.swift */; };
 		57D678562BC9D14E00B6E132 /* MWFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678552BC9D14E00B6E132 /* MWFonts.swift */; };
+		57D678582BC9F3FC00B6E132 /* MWImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678572BC9F3FC00B6E132 /* MWImageAssets.swift */; };
+		57D6785A2BC9F55400B6E132 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678592BC9F55400B6E132 /* TextView.swift */; };
+		57D6785D2BC9F68A00B6E132 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 57D6785C2BC9F68A00B6E132 /* SnapKit */; };
+		57D678602BC9F70F00B6E132 /* TextViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6785F2BC9F70F00B6E132 /* TextViewViewModel.swift */; };
+		57D678642BCA8B1100B6E132 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678632BCA8B1100B6E132 /* MainButton.swift */; };
+		57D678662BCA8B8A00B6E132 /* MainButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678652BCA8B8A00B6E132 /* MainButtonViewModel.swift */; };
+		57D678692BCA8C4500B6E132 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678682BCA8C4500B6E132 /* String+Extensions.swift */; };
+		57D6786C2BCABDA200B6E132 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6786B2BCABDA200B6E132 /* TextField.swift */; };
+		57D6786E2BCABDBA00B6E132 /* TextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6786D2BCABDBA00B6E132 /* TextFieldViewModel.swift */; };
+		57D678702BCC598200B6E132 /* SeparateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D6786F2BCC598200B6E132 /* SeparateView.swift */; };
+		57D678722BCC867E00B6E132 /* MWSizeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678712BCC867E00B6E132 /* MWSizeHelper.swift */; };
+		57D678752BCC8BA800B6E132 /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678742BCC8BA800B6E132 /* ImageButton.swift */; };
+		57D678A12BCEE8BA00B6E132 /* ViewWithBackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678A02BCEE8BA00B6E132 /* ViewWithBackgroundImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,9 +63,20 @@
 		57D6784A2BC5F29C00B6E132 /* AuthentificationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationPresenter.swift; sourceTree = "<group>"; };
 		57D6784C2BC5F5F400B6E132 /* AuthentificationRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationRoutes.swift; sourceTree = "<group>"; };
 		57D6784E2BC5F66B00B6E132 /* AuthentificationFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationFabric.swift; sourceTree = "<group>"; };
-		57D678512BC5FCD900B6E132 /* ShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeView.swift; sourceTree = "<group>"; };
 		57D678532BC9CD1A00B6E132 /* MWPallete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWPallete.swift; sourceTree = "<group>"; };
 		57D678552BC9D14E00B6E132 /* MWFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWFonts.swift; sourceTree = "<group>"; };
+		57D678572BC9F3FC00B6E132 /* MWImageAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWImageAssets.swift; sourceTree = "<group>"; };
+		57D678592BC9F55400B6E132 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		57D6785F2BC9F70F00B6E132 /* TextViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewViewModel.swift; sourceTree = "<group>"; };
+		57D678632BCA8B1100B6E132 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
+		57D678652BCA8B8A00B6E132 /* MainButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonViewModel.swift; sourceTree = "<group>"; };
+		57D678682BCA8C4500B6E132 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		57D6786B2BCABDA200B6E132 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		57D6786D2BCABDBA00B6E132 /* TextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewModel.swift; sourceTree = "<group>"; };
+		57D6786F2BCC598200B6E132 /* SeparateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparateView.swift; sourceTree = "<group>"; };
+		57D678712BCC867E00B6E132 /* MWSizeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWSizeHelper.swift; sourceTree = "<group>"; };
+		57D678742BCC8BA800B6E132 /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
+		57D678A02BCEE8BA00B6E132 /* ViewWithBackgroundImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithBackgroundImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57D6785D2BC9F68A00B6E132 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,11 +111,12 @@
 			isa = PBXGroup;
 			children = (
 				57BBF7CE2BAF4390007EC31E /* Modules */,
-				57BBF7D02BAF43D2007EC31E /* Resources */,
 				57BBF7CF2BAF43BE007EC31E /* Components */,
 				57BBF7DF2BAF46DF007EC31E /* Services */,
 				57BBF7D12BAF43FC007EC31E /* Protocols */,
+				57D678672BCA8C2900B6E132 /* Extensions */,
 				57BBF7CD2BAF4341007EC31E /* App */,
+				57BBF7D02BAF43D2007EC31E /* Resources */,
 			);
 			path = MyWallet;
 			sourceTree = "<group>";
@@ -116,7 +141,9 @@
 		57BBF7CF2BAF43BE007EC31E /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				57D678612BCA8AE600B6E132 /* Buttons */,
 				57D678502BC5FCC200B6E132 /* Views */,
+				57D6786A2BCABD8C00B6E132 /* TextFields */,
 				57BBF7E02BAF4919007EC31E /* SharedModels */,
 				57BBF7DC2BAF46B6007EC31E /* Router */,
 				57BBF7D72BAF46AA007EC31E /* TabBarController */,
@@ -134,6 +161,8 @@
 				57BBF7E32BAF8BF8007EC31E /* Images.xcassets */,
 				57D678532BC9CD1A00B6E132 /* MWPallete.swift */,
 				57D678552BC9D14E00B6E132 /* MWFonts.swift */,
+				57D678572BC9F3FC00B6E132 /* MWImageAssets.swift */,
+				57D678712BCC867E00B6E132 /* MWSizeHelper.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -219,9 +248,63 @@
 		57D678502BC5FCC200B6E132 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				57D678512BC5FCD900B6E132 /* ShapeView.swift */,
+				57D678A02BCEE8BA00B6E132 /* ViewWithBackgroundImage.swift */,
+				57D6786F2BCC598200B6E132 /* SeparateView.swift */,
+				57D6785E2BC9F6FB00B6E132 /* TextView */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		57D6785E2BC9F6FB00B6E132 /* TextView */ = {
+			isa = PBXGroup;
+			children = (
+				57D6785F2BC9F70F00B6E132 /* TextViewViewModel.swift */,
+				57D678592BC9F55400B6E132 /* TextView.swift */,
+			);
+			path = TextView;
+			sourceTree = "<group>";
+		};
+		57D678612BCA8AE600B6E132 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				57D678732BCC8B8B00B6E132 /* ImageButton */,
+				57D678622BCA8AEF00B6E132 /* MainButton */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		57D678622BCA8AEF00B6E132 /* MainButton */ = {
+			isa = PBXGroup;
+			children = (
+				57D678632BCA8B1100B6E132 /* MainButton.swift */,
+				57D678652BCA8B8A00B6E132 /* MainButtonViewModel.swift */,
+			);
+			path = MainButton;
+			sourceTree = "<group>";
+		};
+		57D678672BCA8C2900B6E132 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				57D678682BCA8C4500B6E132 /* String+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		57D6786A2BCABD8C00B6E132 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				57D6786B2BCABDA200B6E132 /* TextField.swift */,
+				57D6786D2BCABDBA00B6E132 /* TextFieldViewModel.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		57D678732BCC8B8B00B6E132 /* ImageButton */ = {
+			isa = PBXGroup;
+			children = (
+				57D678742BCC8BA800B6E132 /* ImageButton.swift */,
+			);
+			path = ImageButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +323,9 @@
 			dependencies = (
 			);
 			name = MyWallet;
+			packageProductDependencies = (
+				57D6785C2BC9F68A00B6E132 /* SnapKit */,
+			);
 			productName = MyWallet;
 			productReference = 57BBF7B62BAF430E007EC31E /* MyWallet.app */;
 			productType = "com.apple.product-type.application";
@@ -268,6 +354,9 @@
 				Base,
 			);
 			mainGroup = 57BBF7AD2BAF430E007EC31E;
+			packageReferences = (
+				57D6785B2BC9F68A00B6E132 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 57BBF7B72BAF430E007EC31E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -298,20 +387,31 @@
 			files = (
 				57D678562BC9D14E00B6E132 /* MWFonts.swift in Sources */,
 				57D6784D2BC5F5F400B6E132 /* AuthentificationRoutes.swift in Sources */,
+				57D678642BCA8B1100B6E132 /* MainButton.swift in Sources */,
+				57D6786C2BCABDA200B6E132 /* TextField.swift in Sources */,
 				57BBF7DA2BAF46AA007EC31E /* TabBarViewContoller.swift in Sources */,
 				57D678542BC9CD1A00B6E132 /* MWPallete.swift in Sources */,
+				57D678662BCA8B8A00B6E132 /* MainButtonViewModel.swift in Sources */,
 				57BBF7D62BAF4693007EC31E /* Factory.swift in Sources */,
 				57D678492BC5CF5000B6E132 /* AuthentificationInteractor.swift in Sources */,
 				57D6784B2BC5F29C00B6E132 /* AuthentificationPresenter.swift in Sources */,
+				57D6786E2BCABDBA00B6E132 /* TextFieldViewModel.swift in Sources */,
+				57D678752BCC8BA800B6E132 /* ImageButton.swift in Sources */,
 				57D678422BC5BD4200B6E132 /* AuthentificationView.swift in Sources */,
-				57D678522BC5FCD900B6E132 /* ShapeView.swift in Sources */,
 				57BBF7E22BAF4933007EC31E /* SharedCardModel.swift in Sources */,
+				57D678A12BCEE8BA00B6E132 /* ViewWithBackgroundImage.swift in Sources */,
 				57D6784F2BC5F66B00B6E132 /* AuthentificationFabric.swift in Sources */,
 				57BBF7DE2BAF46B6007EC31E /* Router.swift in Sources */,
+				57D678582BC9F3FC00B6E132 /* MWImageAssets.swift in Sources */,
 				57D678472BC5C96600B6E132 /* AuthentificationViewController.swift in Sources */,
 				57BBF7BA2BAF430E007EC31E /* AppDelegate.swift in Sources */,
+				57D678722BCC867E00B6E132 /* MWSizeHelper.swift in Sources */,
+				57D678702BCC598200B6E132 /* SeparateView.swift in Sources */,
 				57D678452BC5C7AD00B6E132 /* ViewModelConfigurable.swift in Sources */,
 				57BBF7DB2BAF46AA007EC31E /* TabBarFactory.swift in Sources */,
+				57D678692BCA8C4500B6E132 /* String+Extensions.swift in Sources */,
+				57D6785A2BC9F55400B6E132 /* TextView.swift in Sources */,
+				57D678602BC9F70F00B6E132 /* TextViewViewModel.swift in Sources */,
 				57BBF7BC2BAF430E007EC31E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,6 +635,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		57D6785B2BC9F68A00B6E132 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		57D6785C2BC9F68A00B6E132 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57D6785B2BC9F68A00B6E132 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 57BBF7AE2BAF430E007EC31E /* Project object */;
 }
