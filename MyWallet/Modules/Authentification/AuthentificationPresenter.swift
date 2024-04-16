@@ -59,13 +59,22 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
                         ),
                     ],
                     leftBubbleViewModel: .init(
+                        bubble: .init(
+                            image: MWImageAssets.loginFormBubbleActive
+                        ),
+                        titleLabel: .init(
+                            style: .bold(size: 30),
+                            text: "Login",
+                            textColor: MWPallete.activeText,
+                            isShadowed: false
+                        ),
                         titleActionButton: .init(
-                            title: "Login",
+                            title: "",
                             backgroundColor: .clear,
-                            textColorEnable: MWPallete.activeText,
-                            font: MWFonts.bold30,
-                            height: 50,
-                            action: viewController?.moveLoginToFront
+                            textColorEnable: .clear,
+                            height: 36,
+                            width: 90,
+                            action: viewController?.moveRegisterToFront
                         ),
                         textfields: [
                             .init(
@@ -126,13 +135,22 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
                         ]
                     ),
                     rightBubbleViewModel: .init(
+                        bubble: .init(
+                            image: MWImageAssets.registerFormBubbleInactive
+                        ),
+                        titleLabel: .init(
+                            style: .bold(size: 30),
+                            text: "SIGN UP",
+                            textColor: MWPallete.activeText,
+                            isShadowed: false
+                        ),
                         titleActionButton: .init(
-                            title: "SIGN UP",
+                            title: "",
                             backgroundColor: .clear,
-                            textColorEnable: MWPallete.inactiveText,
-                            font: MWFonts.bold30,
-                            height: 50,
-                            action: viewController?.moveRegisterToFront
+                            textColorEnable: .clear,
+                            height: 36,
+                            width: 75,
+                            action: viewController?.moveLoginToFront
                         ),
                         textfields: [
                             .init(

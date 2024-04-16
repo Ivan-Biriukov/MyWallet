@@ -18,22 +18,25 @@ final class AuthentificationView: UIView {
         static var bubleViewHeight: CGFloat {
             return UIScreen.main.bounds.height / 2.09
         }
-        
-        static var centerXForBubbleView: CGFloat {
-            return (UIScreen.main.bounds.width - bubbleViewWidth) / 2
-        }
-        
-        static var centerYBubbleView: CGFloat {
-            return (UIScreen.main.bounds.height - bubleViewHeight) / 1.65
-        }
-        
+    
         static let logoSize: CGFloat = UIScreen.main.bounds.height / 8.85
-        static let logogImageTopInsets: CGFloat = -10
+        static let logogImageTopInsets: CGFloat = -20
         static let logoLabelTopOfsets: CGFloat = 10
-        static let bubbleViewsActionButtonTopInsets: CGFloat = 35
+        static let bubbleViewsActionButtonTopInsets: CGFloat = 40
         static let leftBubbleViewActionButtonLeadingInsets: CGFloat = 25
-        
         static let rightBubbleViewActionButtonLeadingInsets: CGFloat = 15
+        static let bubbleViewActionButtonTopInsets: CGFloat = 15
+        static let fieldsHeight: CGFloat = 40
+        static let leftBubbleLoginFieldTopInsets: CGFloat = 25
+        static let leftBubblePasswordFieldInsets: CGFloat = 20
+        static let fieldSidesInsets: CGFloat = 25
+        static let passwordRecoveryButtonTopOffsets: CGFloat = 30
+        static let passwordRecoveryButtonTrailingInsets: CGFloat = 25
+        static let rightBubbleFieldsStackTopOffset: CGFloat = 30
+        static let rightBubbleFieldsStackSideInsets: CGFloat = 25
+        static let bottomSectionSeparaterBottomInsets: CGFloat = 80
+        static let socialButtonsStackBottomInsets: CGFloat = 35
+        static let bubbleViewsTopOffsets: CGFloat = 35
     }
     
     // MARK: - Properties
@@ -47,38 +50,15 @@ final class AuthentificationView: UIView {
     
     private lazy var logoLabel = TextView()
     
-    private lazy var loginLeftBubbleView: ShapeView = .init(
-        frame: CGRect(
-            x: Constants.centerXForBubbleView,
-            y: Constants.centerYBubbleView,
-            width: Constants.bubbleViewWidth,
-            height: Constants.bubleViewHeight
-        ),
-        style: .leftUpperCorner,
-        styleProperties: .init(
-            fillColor: MWPallete.authFiguresBackgroundActive.cgColor
-        )
-    )
-    
-    private lazy var leftLoginBubbleActionTitle = MainButton()
+    private lazy var loginBubbleView = ViewWithBackgroundImage()
+    private lazy var leftLoginBubbleTitleLabel = TextView()
+    private lazy var moveToRegisterBubbleButton = MainButton()
     private lazy var leftBubbleLoginField = TextField()
     private lazy var leftBubblePasswordField = TextField()
     private lazy var passwordRecoveryButton = MainButton()
-    
-    private lazy var loginRightBubbleView: ShapeView = .init(
-        frame: CGRect(
-            x: Constants.centerXForBubbleView,
-            y: Constants.centerYBubbleView,
-            width: Constants.bubbleViewWidth,
-            height: Constants.bubleViewHeight
-        ),
-        style: .leftUpperCorner,
-        styleProperties: .init(
-            fillColor: UIColor.systemGray4.cgColor
-        )
-    )
-    
-    private lazy var rightBubbleActionTitle = MainButton()
+    private lazy var registerBubbleView = ViewWithBackgroundImage()
+    private lazy var rightBubbleTitleLabel = TextView()
+    private lazy var moveToLoginBubbleButton = MainButton()
     private lazy var rightBubbleNameField = TextField()
     private lazy var rightBubbleEmailField = TextField()
     private lazy var rightBubblePasswordField = TextField()
@@ -95,14 +75,12 @@ final class AuthentificationView: UIView {
         stack.distribution = .fill
         stack.alignment = .fill
         stack.spacing = 20
-        
         return stack
     }()
     
     private lazy var loginActionButton = MainButton()
     private lazy var registerActionButton = MainButton()
     private lazy var bottomSectionSeparater = SeparateView()
-    
     private lazy var googleButton = ImageButton()
     private lazy var appleButton = ImageButton()
     
@@ -111,7 +89,6 @@ final class AuthentificationView: UIView {
         stack.axis = .horizontal
         stack.distribution = .fill
         stack.spacing = 30
-        
         return stack
     }()
 
@@ -121,7 +98,6 @@ final class AuthentificationView: UIView {
         super.init(frame: .zero)
         addSUbviews()
         setupConstraints()
-        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -136,11 +112,11 @@ private extension AuthentificationView {
     // MARK: - .addSubviews()
     
     func addSUbviews() {
-        [logoImage, logoLabel, loginRightBubbleView, loginLeftBubbleView, bottomSectionSeparater, socialButtonsStack].forEach({self.addSubview($0)})
+        [logoImage, logoLabel, registerBubbleView, loginBubbleView, bottomSectionSeparater, socialButtonsStack].forEach({self.addSubview($0)})
         
-        [leftLoginBubbleActionTitle, leftBubbleLoginField, leftBubblePasswordField, passwordRecoveryButton, loginActionButton].forEach({loginLeftBubbleView.addSubview($0)})
+        [leftLoginBubbleTitleLabel, moveToRegisterBubbleButton, leftBubbleLoginField, leftBubblePasswordField, passwordRecoveryButton, loginActionButton].forEach({loginBubbleView.addSubview($0)})
         
-        [rightBubbleActionTitle, rightBubbleFieldsStack, registerActionButton].forEach({loginRightBubbleView.addSubview($0)})
+        [rightBubbleTitleLabel, moveToLoginBubbleButton, rightBubbleFieldsStack, registerActionButton].forEach({registerBubbleView.addSubview($0)})
     }
     
     // MARK: - .setupConstraints()
@@ -158,93 +134,114 @@ private extension AuthentificationView {
         }
         
         loginActionButton.snp.makeConstraints { make in
-            make.top.equalTo(loginLeftBubbleView.snp.bottom).inset(15)
+            make.top.equalTo(loginBubbleView.snp.bottom).inset(Constants.bubbleViewActionButtonTopInsets)
             make.centerX.equalToSuperview()
         }
         
         registerActionButton.snp.makeConstraints { make in
-            make.top.equalTo(loginRightBubbleView.snp.bottom).inset(15)
+            make.top.equalTo(registerBubbleView.snp.bottom).inset(Constants.bubbleViewActionButtonTopInsets)
             make.centerX.equalToSuperview()
         }
         
-        leftLoginBubbleActionTitle.snp.makeConstraints { make in
+        loginBubbleView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(logoLabel.snp.bottom).offset(Constants.bubbleViewsTopOffsets)
+            make.height.equalTo(Constants.bubleViewHeight)
+            make.width.equalTo(Constants.bubbleViewWidth)
+        }
+        
+        leftLoginBubbleTitleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(Constants.bubbleViewsActionButtonTopInsets)
             make.leading.equalToSuperview().inset(Constants.leftBubbleViewActionButtonLeadingInsets)
         }
         
+        moveToRegisterBubbleButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(Constants.bubbleViewsActionButtonTopInsets)
+            make.trailing.equalToSuperview().inset(Constants.rightBubbleViewActionButtonLeadingInsets)
+        }
+        
         leftBubbleLoginField.snp.makeConstraints { make in
-            make.top.equalTo(leftLoginBubbleActionTitle.snp.bottom).offset(25)
-            make.directionalHorizontalEdges.equalToSuperview().inset(25)
-            make.height.equalTo(40)
+            make.top.equalTo(leftLoginBubbleTitleLabel.snp.bottom).offset(Constants.leftBubbleLoginFieldTopInsets)
+            make.directionalHorizontalEdges.equalToSuperview().inset(Constants.fieldSidesInsets)
+            make.height.equalTo(Constants.fieldsHeight)
         }
         
         leftBubblePasswordField.snp.makeConstraints { make in
-            make.top.equalTo(leftBubbleLoginField.snp.bottom).offset(20)
-            make.directionalHorizontalEdges.equalToSuperview().inset(25)
-            make.height.equalTo(40)
+            make.top.equalTo(leftBubbleLoginField.snp.bottom).offset(Constants.leftBubblePasswordFieldInsets)
+            make.directionalHorizontalEdges.equalToSuperview().inset(Constants.fieldSidesInsets)
+            make.height.equalTo(Constants.fieldsHeight)
         }
         
         passwordRecoveryButton.snp.makeConstraints { make in
-            make.top.equalTo(leftBubblePasswordField.snp.bottom).offset(30)
-            make.trailing.equalToSuperview().inset(25)
+            make.top.equalTo(leftBubblePasswordField.snp.bottom).offset(Constants.passwordRecoveryButtonTopOffsets)
+            make.trailing.equalToSuperview().inset(Constants.passwordRecoveryButtonTrailingInsets)
         }
         
-        rightBubbleActionTitle.snp.makeConstraints { make in
+        registerBubbleView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(logoLabel.snp.bottom).offset(Constants.bubbleViewsTopOffsets)
+            make.width.equalTo(Constants.bubbleViewWidth)
+            make.height.equalTo(Constants.bubleViewHeight)
+        }
+        
+        rightBubbleTitleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(Constants.bubbleViewsActionButtonTopInsets)
-            make.leading.equalTo(loginRightBubbleView.snp.leading).offset(Constants.rightBubbleViewActionButtonLeadingInsets)
+            make.trailing.equalTo(registerBubbleView.snp.trailing).inset(Constants.rightBubbleViewActionButtonLeadingInsets)
+        }
+        
+        moveToLoginBubbleButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(Constants.bubbleViewsActionButtonTopInsets)
+            make.leading.equalToSuperview().inset(Constants.rightBubbleViewActionButtonLeadingInsets)
         }
         
         rightBubbleFieldsStack.snp.makeConstraints { make in
-            make.top.equalTo(rightBubbleActionTitle.snp.bottom).offset(20)
-            make.leading.trailing.equalToSuperview().inset(25)
+            make.top.equalTo(moveToLoginBubbleButton.snp.bottom).offset(Constants.rightBubbleFieldsStackTopOffset)
+            make.leading.trailing.equalToSuperview().inset(Constants.rightBubbleFieldsStackSideInsets)
         }
         
         bottomSectionSeparater.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(80)
+            make.bottom.equalToSuperview().inset(Constants.bottomSectionSeparaterBottomInsets)
             make.centerX.equalToSuperview()
         }
         
         socialButtonsStack.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(35)
+            make.bottom.equalToSuperview().inset(Constants.socialButtonsStackBottomInsets)
         }
     }
     
-    // MARK: - .configure()
-    
-    func configure() {
-        [loginRightBubbleView,
-         rightBubbleActionTitle,
-         rightBubbleFieldsStack,
-         registerActionButton
-        ].forEach({$0.transform = CGAffineTransform(scaleX: -1, y: 1)})
+    func bubbleViewSelectingAnimation(for myView: UIView) {
+        UIView.animate(withDuration: 0.35) {
+            myView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            myView.alpha = 0.9
+            self.bringSubviewToFront(myView)
+            for view in myView.subviews {
+                view.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                view.alpha = 0.9
+                self.bringSubviewToFront(view)
+            }
+        } completion: { _ in
+            UIView.animate(withDuration: 0.35) {
+                myView.transform = .identity
+                myView.alpha = 1.0
+                for view in myView.subviews {
+                    view.transform = .identity
+                    view.alpha = 1.0
+                }
+            }
+        }
     }
 }
 
 // MARK: - Animated Button Actions
 
-// TODO: - Доработать красивую анимацию
 extension AuthentificationView {
     func bringLoginBubleToFront() {
-        UIView.animate(withDuration: 0.3) {
-            self.bringSubviewToFront(self.loginLeftBubbleView)
-        }
+        bubbleViewSelectingAnimation(for: loginBubbleView)
     }
     
     func bringRegisterBubleToFront() {
-//        UIView.animate(withDuration: 0.3) {
-//            self.bringSubviewToFront(self.loginRightBubbleView)
-//        }
-        
-        UIView.animate(withDuration: 0.5) {
-            self.loginRightBubbleView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2) // Эффект увеличения размера
-            self.loginRightBubbleView.layer.zPosition = 3 // Перемещаем на передний план
-        } completion: { _ in
-            UIView.animate(withDuration: 0.5) {
-                self.loginRightBubbleView.transform = .identity // Возвращаем обычный размер
-            }
-        }
-
+        bubbleViewSelectingAnimation(for: registerBubbleView)
     }
 }
 
@@ -264,6 +261,8 @@ extension AuthentificationView: ViewModelConfigurable {
     }
     
     struct BubbleViewModel {
+        let bubble: ViewWithBackgroundImage.ViewModel
+        let titleLabel: TextView.ViewModel
         let titleActionButton: MainButton.ViewModel
         let textfields: [TextField.ViewModel]
         let additionalButtons: [MainButton.ViewModel]? 
@@ -276,12 +275,16 @@ extension AuthentificationView: ViewModelConfigurable {
         self.loginActionButton.configure(with: viewModel.actionButtons[0])
         self.registerActionButton.configure(with: viewModel.actionButtons[1])
         
-        self.leftLoginBubbleActionTitle.configure(with: viewModel.leftBubbleViewModel.titleActionButton)
+        self.loginBubbleView.configure(with: viewModel.leftBubbleViewModel.bubble)
+        self.leftLoginBubbleTitleLabel.configure(with: viewModel.leftBubbleViewModel.titleLabel)
+        self.moveToRegisterBubbleButton.configure(with: viewModel.leftBubbleViewModel.titleActionButton)
         self.leftBubbleLoginField.configure(with: viewModel.leftBubbleViewModel.textfields[0])
         self.leftBubblePasswordField.configure(with: viewModel.leftBubbleViewModel.textfields[1])
         self.passwordRecoveryButton.configure(with: viewModel.leftBubbleViewModel.additionalButtons![0])
         
-        self.rightBubbleActionTitle.configure(with: viewModel.rightBubbleViewModel.titleActionButton)
+        self.registerBubbleView.configure(with: viewModel.rightBubbleViewModel.bubble)
+        self.rightBubbleTitleLabel.configure(with: viewModel.rightBubbleViewModel.titleLabel)
+        self.moveToLoginBubbleButton.configure(with: viewModel.rightBubbleViewModel.titleActionButton)
         self.rightBubbleNameField.configure(with: viewModel.rightBubbleViewModel.textfields[0])
         self.rightBubbleEmailField.configure(with: viewModel.rightBubbleViewModel.textfields[1])
         self.rightBubblePasswordField.configure(with: viewModel.rightBubbleViewModel.textfields[2])

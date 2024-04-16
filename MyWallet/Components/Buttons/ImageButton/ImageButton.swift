@@ -10,8 +10,8 @@ final class ImageButton: UIButton {
     // MARK: - Properties
     
     private var action: (()->Void)?
-
-// MARK: - Init
+    
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,6 @@ final class ImageButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 // MARK: - Configure
@@ -41,7 +40,7 @@ private extension ImageButton {
     }
 }
 
-// MARK: -
+// MARK: - ViewModelConfigurable
 
 extension ImageButton: ViewModelConfigurable {
     struct ViewModel {
@@ -72,6 +71,5 @@ extension ImageButton: ViewModelConfigurable {
             make.height.equalTo(viewModel.size.height)
             make.width.equalTo(viewModel.size.width)
         }
-        
     }
 }

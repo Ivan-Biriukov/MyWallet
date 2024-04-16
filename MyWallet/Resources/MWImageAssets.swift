@@ -31,5 +31,8 @@ final class MWImageAssets {
 
     static let logoImage = getImage(named: "wallet-svgrepo-com")
     static let emailIcon = getImage(named: "email")
-    
+    static let loginFormBubbleActive = getImage(named: "LoginActive")
+    static let loginFormBubbleInactive = getImage(named: "LoginInactive")
+    static let registerFormBubbleActive = getImage(named: "RegisterActive")
+    static let registerFormBubbleInactive = getImage(named: "RegisterInactive")
 }

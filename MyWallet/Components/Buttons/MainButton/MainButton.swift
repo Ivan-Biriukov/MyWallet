@@ -118,6 +118,5 @@ private extension MainButton {
     
     @objc func buttonPressed() {
        action?()
-        debugPrint("Action called from MainButton Class")
     }
 }
