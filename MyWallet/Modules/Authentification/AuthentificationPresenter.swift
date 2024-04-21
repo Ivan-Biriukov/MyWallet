@@ -6,6 +6,7 @@ import Foundation
 
 protocol PresentsAuthentificationInfo {
     func presentInitialData()
+    func presentMainScreen()
 }
 
 // MARK: - AuthentificationPresenter
@@ -46,7 +47,8 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
                             font: MWFonts.bold20,
                             cornerRadius: 20,
                             height: 45,
-                            width: 180
+                            width: 180,
+                            action: self.presentMainScreen
                         ),
                         .init(
                             title: "REGISTER",
@@ -282,5 +284,11 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
                     ]
                 )
         )
+    }
+}
+
+extension AuthentificationPresenter {
+    func presentMainScreen() {
+        Router.mainScreen()
     }
 }
