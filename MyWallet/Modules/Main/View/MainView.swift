@@ -10,10 +10,11 @@ final class MainView: UIView {
     // MARK: - Constants
     
     private enum Constants {
-        static let mainCollectionViewItemSize: CGSize = CGSize(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height / 3.5)
-        static let firstSectionCollectionItemSize: CGSize = CGSize(width: UIScreen.main.bounds.width - 10, height: 60)
+        static let cardSectionHeight: CGFloat = 250
+        static let allTagsSectionHeight: CGFloat = 50
         static let searchBarTopInsets: CGFloat = 96
         static let searchBarHeight: CGFloat = 44
+        static let collectionHeaderIdentifire = "Header"
     }
     
     // MARK: - Properties
@@ -26,14 +27,15 @@ final class MainView: UIView {
         return bar
     }()
     
-    private lazy var collection: UICollectionView = {
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collection.register(CollectionContainerViewCell.self, forCellWithReuseIdentifier: CollectionContainerViewCell.id)
-        collection.register(SingleItemCollectionViewCell.self, forCellWithReuseIdentifier: SingleItemCollectionViewCell.identifire)
-        collection.dataSource = self
-        collection.delegate = self
-        collection.backgroundColor = .clear
-        return collection
+    private lazy var tableView: UITableView = {
+        let tb = UITableView()
+        tb.backgroundColor = .clear
+        tb.indicatorStyle = .white
+        tb.delegate = self
+        tb.dataSource = self
+        tb.register(SingleItemTableViewCell.self, forCellReuseIdentifier: SingleItemTableViewCell.identifire)
+        tb.register(ImputCollectionTableViewCell.self, forCellReuseIdentifier: ImputCollectionTableViewCell.id)
+        return tb
     }()
     
     // MARK: - Init
@@ -57,7 +59,7 @@ private extension MainView {
     
     func addSubviews() {
         self.addSubview(searchBar)
-        self.addSubview(collection)
+        self.addSubview(tableView)
     }
     
     // MARK: - .setupConstraints()
@@ -69,28 +71,55 @@ private extension MainView {
             make.directionalHorizontalEdges.equalToSuperview()
         }
         
-        collection.snp.makeConstraints { make in
+        tableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
+    
+    func createHeaderView(for viewModel: SetionHeaderViewData) -> UIView {
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: viewModel.width, height: viewModel.height))
+        
+        let label: UILabel = {
+            let lb = UILabel()
+            lb.font = viewModel.labelFont
+            lb.text = viewModel.labelText
+            lb.textColor = viewModel.labelTextColor
+            lb.textAlignment = viewModel.labelTextAligment
+            return lb
+        }()
+        
+        container.addSubview(label)
+        
+        label.snp.makeConstraints { make in
+            make.directionalVerticalEdges.horizontalEdges.equalToSuperview()
+        }
+        
+        return container
+    }
 }
 
-// MARK: - UICollectionViewDelegate
+// MARK: - UITableViewDelegate
 
-extension MainView: UICollectionViewDelegate {
-    
+extension MainView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let header = collectionViewDataSource.headersForSection?[section] {
+            return createHeaderView(for: header)
+        } else {
+            return nil
+        }
+    }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UITableViewDataSource
 
-extension MainView: UICollectionViewDataSource {
+extension MainView: UITableViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return collectionViewDataSource.scrolledCells?.count ?? 0
@@ -101,11 +130,11 @@ extension MainView: UICollectionViewDataSource {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionContainerViewCell.id, for: indexPath) as? CollectionContainerViewCell else {
-                return UICollectionViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ImputCollectionTableViewCell.id, for: indexPath) as? ImputCollectionTableViewCell else {
+                return UITableViewCell()
             }
             
             if let currentCellData = collectionViewDataSource.scrolledCells?[indexPath.row] {
@@ -115,8 +144,8 @@ extension MainView: UICollectionViewDataSource {
             return cell
             
         case 1:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SingleItemCollectionViewCell.identifire, for: indexPath) as? SingleItemCollectionViewCell else {
-                return UICollectionViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SingleItemTableViewCell.identifire, for: indexPath) as? SingleItemTableViewCell else {
+                return UITableViewCell()
             }
             
             if let currentCellData = collectionViewDataSource.signleItemsCells?[indexPath.row] {
@@ -126,25 +155,19 @@ extension MainView: UICollectionViewDataSource {
             return cell
             
         default:
-            return UICollectionViewCell()
+            return UITableViewCell()
         }
     }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension MainView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return Constants.firstSectionCollectionItemSize
+            return Constants.allTagsSectionHeight
         default:
-            return Constants.mainCollectionViewItemSize
+            return Constants.cardSectionHeight
         }
     }
 }
-
 // MARK: - ViewModelConfigurable
 
 extension MainView: ViewModelConfigurable {
@@ -154,16 +177,26 @@ extension MainView: ViewModelConfigurable {
     }
     
     struct CollectionViewData {
-        var scrolledCells: [CollectionContainerViewCell.ViewModel]?
-        var signleItemsCells: [SingleItemCollectionViewCell.ViewModel]?
+        var scrolledCells: [ImputCollectionTableViewCell.ViewModel]?
+        var signleItemsCells: [SingleItemTableViewCell.ViewModel]?
+        var headersForSection: [SetionHeaderViewData]?
+    }
+    
+    struct SetionHeaderViewData {
+        let width: CGFloat
+        let height: CGFloat
+        let labelFont: UIFont
+        let labelText: String
+        let labelTextColor: UIColor
+        let labelTextAligment: NSTextAlignment
     }
     
     func configure(with viewModel: ViewModel) {
         self.backgroundColor = viewModel.backgroundColor
         collectionViewDataSource = viewModel.collectionData
-        
+                
         DispatchQueue.main.async {
-            self.collection.reloadData()
+            self.tableView.reloadData()
         }
     }
 }

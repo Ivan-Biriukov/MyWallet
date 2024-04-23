@@ -39,6 +39,56 @@ final class MainPresenter {
         }
         return result
     }
+    
+    private func stubsForSingleItemCell() -> [SingleItemTableViewCell.ViewModel] {
+        var result: [SingleItemTableViewCell.ViewModel] = []
+        
+        for _ in 0...10 {
+            result.append(.init(
+                parrentCategory: .alcohol_stores,
+                cardImage: .init(),
+                reverseButton: .init(
+                    image: MWImageAssets.rotate,
+                    size: CGSize(width: 20, height: 20)
+                ),
+                titleLabel: .init(
+                    style: .bold(size: 25),
+                    text: "Красное и Белое",
+                    textColor: MWPallete.inactiveText,
+                    isShadowed: false
+                ),
+                favoriteButton: .init(
+                    image: MWImageAssets.favorite,
+                    size: CGSize(width: 60, height: 60)
+                ),
+                infoButton: .init(
+                    image: MWImageAssets.infoIcon,
+                    size: CGSize(width: 20, height: 20)
+                ),
+                edditButton: .init(
+                    image: MWImageAssets.editIcon,
+                    size: CGSize(width: 20, height: 20)
+                )
+            ))
+        }
+        return result
+    }
+    
+    private func stubForHeader(with titles: [String]) -> [MainView.SetionHeaderViewData] {
+        var result: [MainView.SetionHeaderViewData] = []
+        
+        for title in titles {
+            result.append(.init(
+                width: SizeCalculatorHelper.screenWidth(),
+                height: 22,
+                labelFont: MWFonts.bold20,
+                labelText: title,
+                labelTextColor: MWPallete.activeText,
+                labelTextAligment: .center
+            ))
+        }
+        return result
+    }
 }
 
 // MARK: - PresentsAuthentificationInfo
@@ -51,7 +101,6 @@ extension MainPresenter: PresentsMain {
                 collectionData: .init(
                     scrolledCells: [
                         .init(
-                            itemSize: CGSize(width: 120, height: 30),
                             scrollDirection: .horizontal,
                             backgroudColor: .clear,
                             collectionInsets: .init(
@@ -61,34 +110,8 @@ extension MainPresenter: PresentsMain {
                             collectionData: stubsForScrolledCells()
                         )
                     ],
-                    signleItemsCells: [
-                        .init(
-                            parrentCategory: .alcohol_stores,
-                            cardImage: .init(),
-                            reverseButton: .init(
-                                image: MWImageAssets.rotate,
-                                size: CGSize(width: 20, height: 20)
-                            ),
-                            titleLabel: .init(
-                                style: .bold(size: 25),
-                                text: "Красное и Белое",
-                                textColor: MWPallete.inactiveText,
-                                isShadowed: false
-                            ),
-                            favoriteButton: .init(
-                                image: MWImageAssets.favorite,
-                                size: CGSize(width: 60, height: 60)
-                            ),
-                            infoButton: .init(
-                                image: MWImageAssets.infoIcon,
-                                size: CGSize(width: 20, height: 20)
-                            ),
-                            edditButton: .init(
-                                image: MWImageAssets.editIcon,
-                                size: CGSize(width: 20, height: 20)
-                            )
-                        )
-                    ]
+                    signleItemsCells: stubsForSingleItemCell(),
+                    headersForSection: stubForHeader(with: ["Search by Category", "Avalible Cards"])
                 )
             )
         )

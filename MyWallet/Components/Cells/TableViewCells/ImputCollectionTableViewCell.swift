@@ -3,11 +3,16 @@
 import UIKit
 import SnapKit
 
-// MARK: - CollectionContainerViewCell
+// MARK: - ImputCollectionTableViewCell
 
-final class CollectionContainerViewCell: UICollectionViewCell {
+final class ImputCollectionTableViewCell: UITableViewCell {
     
-    static let id = "CollectionContainerViewCell"
+    static let id = "ImputCollectionTableViewCell"
+    
+    // MARK: - Constants
+    private enum Constants {
+        static let hieghtForItemLayout: CGFloat = 30
+    }
     
     // MARK: - Properties
     
@@ -16,14 +21,13 @@ final class CollectionContainerViewCell: UICollectionViewCell {
     private var collectionLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 100, height: 50)
         return layout
     }()
     
     private lazy var collectionView: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: collectionLayout)
-        collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(ButtonCollectionViewCell.self, forCellWithReuseIdentifier: ButtonCollectionViewCell.id)
+        collection.indicatorStyle = .white
         collection.dataSource = self
         collection.delegate = self
         return collection
@@ -31,10 +35,11 @@ final class CollectionContainerViewCell: UICollectionViewCell {
     
     // MARK: - Init
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
         setupConstraints()
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -44,7 +49,7 @@ final class CollectionContainerViewCell: UICollectionViewCell {
 
 // MARK: - Configure
 
-private extension CollectionContainerViewCell {
+private extension ImputCollectionTableViewCell {
     func addSubviews() {
         contentView.addSubview(collectionView)
     }
@@ -61,11 +66,17 @@ private extension CollectionContainerViewCell {
             make.directionalVerticalEdges.equalToSuperview().inset(verticalInsets)
         }
     }
+    
+    func configure() {
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+        selectionStyle = .none
+    }
 }
 
 // MARK: - UICollectionViewDataSource
 
-extension CollectionContainerViewCell: UICollectionViewDataSource {
+extension ImputCollectionTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionDataSource.count
     }
@@ -82,7 +93,9 @@ extension CollectionContainerViewCell: UICollectionViewDataSource {
     }
 }
 
-extension CollectionContainerViewCell: UICollectionViewDelegate {
+// MARK: - UICollectionViewDelegate
+
+extension ImputCollectionTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.id, for: indexPath) as? ButtonCollectionViewCell else {
             return
@@ -92,16 +105,24 @@ extension CollectionContainerViewCell: UICollectionViewDelegate {
         collectionDataSource[indexPath.row].isSelected = !currentCellData.isSelected
         cell.switchSelecting(flag: currentCellData.isSelected)
         collectionView.reloadData()
-        print(currentCellData.isSelected)
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension ImputCollectionTableViewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let currentElement = collectionDataSource[indexPath.row]
+        
+        return CGSize(width: SizeCalculatorHelper.calculateWidthForText(currentElement.title, font: currentElement.font), height: Constants.hieghtForItemLayout)
     }
 }
 
 // MARK: - ViewModelConfigurable
 
-extension CollectionContainerViewCell: ViewModelConfigurable {
+extension ImputCollectionTableViewCell: ViewModelConfigurable {
     
     struct ViewModel {
-        let itemSize: CGSize
         let scrollDirection:  UICollectionView.ScrollDirection
         let backgroudColor: UIColor?
         let collectionInsets: CollectionInsets?
@@ -122,7 +143,6 @@ extension CollectionContainerViewCell: ViewModelConfigurable {
     }
     
     func configure(with viewModel: ViewModel) {
-        collectionLayout.itemSize = viewModel.itemSize
         collectionLayout.scrollDirection = viewModel.scrollDirection
         collectionDataSource = viewModel.collectionData
         

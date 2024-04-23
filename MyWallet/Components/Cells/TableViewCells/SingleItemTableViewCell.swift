@@ -3,11 +3,9 @@
 import UIKit
 import SnapKit
 
-// MARK: - SingleItemCollectionViewCell
-
-final class SingleItemCollectionViewCell: UICollectionViewCell {
+final class SingleItemTableViewCell: UITableViewCell {
     
-    static let identifire: String = "SingleItemCollectionViewCell"
+    static let identifire: String = "SingleItemTableViewCell"
     
     // MARK: - Constants
     
@@ -50,10 +48,11 @@ final class SingleItemCollectionViewCell: UICollectionViewCell {
     
     // MARK: - init
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
         setupConstraints()
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -63,7 +62,7 @@ final class SingleItemCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Configure
 
-private extension SingleItemCollectionViewCell {
+private extension SingleItemTableViewCell {
     func addSubviews() {
         [ titleLabel, cardImage, actionButtonsStack, favoriteButton].forEach({contentView.addSubview($0)})
     }
@@ -92,11 +91,17 @@ private extension SingleItemCollectionViewCell {
             make.trailing.equalToSuperview().inset(Constants.favoriteButtonInsets)
         }
     }
+    
+    func configure() {
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+        selectionStyle = .none
+    }
 }
 
 // MARK: - ViewModelConfigurable
 
-extension SingleItemCollectionViewCell: ViewModelConfigurable {
+extension SingleItemTableViewCell: ViewModelConfigurable {
     struct ViewModel {
         let parrentCategory: CardCategory
         var cardImage: CardImages

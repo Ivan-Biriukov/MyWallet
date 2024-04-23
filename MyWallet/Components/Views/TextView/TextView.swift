@@ -4,8 +4,9 @@ import UIKit
 import SnapKit
 
 // MARK: - TextView
+
 /// Class used for all Labels
-public final class TextView: UIView {
+ final class TextView: UIView {
     
     // MARK: - Style
     
