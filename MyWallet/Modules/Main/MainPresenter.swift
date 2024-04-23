@@ -98,7 +98,7 @@ extension MainPresenter: PresentsMain {
         viewController?.displayInitionalData(
             viewModel: .init(
                 backgroundColor: MWPallete.mainBackground,
-                collectionData: .init(
+                tableData: .init(
                     scrolledCells: [
                         .init(
                             scrollDirection: .horizontal,

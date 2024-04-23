@@ -14,12 +14,11 @@ final class MainView: UIView {
         static let allTagsSectionHeight: CGFloat = 50
         static let searchBarTopInsets: CGFloat = 96
         static let searchBarHeight: CGFloat = 44
-        static let collectionHeaderIdentifire = "Header"
     }
     
     // MARK: - Properties
     
-    private var collectionViewDataSource: CollectionViewData = .init()
+    private var tableData: TableViewModel = .init()
     
     private lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
@@ -92,7 +91,7 @@ private extension MainView {
         container.addSubview(label)
         
         label.snp.makeConstraints { make in
-            make.directionalVerticalEdges.horizontalEdges.equalToSuperview()
+            make.centerY.centerX.equalToSuperview()
         }
         
         return container
@@ -103,10 +102,27 @@ private extension MainView {
 
 extension MainView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let header = collectionViewDataSource.headersForSection?[section] {
+        if let header = tableData.headersForSection?[section] {
             return createHeaderView(for: header)
         } else {
             return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if indexPath.section == 1 {
+            return .delete
+        } else {
+            return .none
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            tableData.signleItemsCells?.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
         }
     }
 }
@@ -122,9 +138,9 @@ extension MainView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return collectionViewDataSource.scrolledCells?.count ?? 0
+            return tableData.scrolledCells?.count ?? 0
         case 1:
-            return collectionViewDataSource.signleItemsCells?.count ?? 0
+            return tableData.signleItemsCells?.count ?? 0
         default:
             return 0
         }
@@ -137,7 +153,7 @@ extension MainView: UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            if let currentCellData = collectionViewDataSource.scrolledCells?[indexPath.row] {
+            if let currentCellData = tableData.scrolledCells?[indexPath.row] {
                 cell.configure(with: currentCellData)
             }
             
@@ -148,7 +164,7 @@ extension MainView: UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            if let currentCellData = collectionViewDataSource.signleItemsCells?[indexPath.row] {
+            if let currentCellData = tableData.signleItemsCells?[indexPath.row] {
                 cell.configure(with: currentCellData)
             }
             
@@ -173,10 +189,10 @@ extension MainView: UITableViewDataSource {
 extension MainView: ViewModelConfigurable {
     struct ViewModel {
         let backgroundColor: UIColor
-        var collectionData: CollectionViewData
+        var tableData: TableViewModel
     }
     
-    struct CollectionViewData {
+    struct TableViewModel {
         var scrolledCells: [ImputCollectionTableViewCell.ViewModel]?
         var signleItemsCells: [SingleItemTableViewCell.ViewModel]?
         var headersForSection: [SetionHeaderViewData]?
@@ -193,7 +209,7 @@ extension MainView: ViewModelConfigurable {
     
     func configure(with viewModel: ViewModel) {
         self.backgroundColor = viewModel.backgroundColor
-        collectionViewDataSource = viewModel.collectionData
+        tableData = viewModel.tableData
                 
         DispatchQueue.main.async {
             self.tableView.reloadData()

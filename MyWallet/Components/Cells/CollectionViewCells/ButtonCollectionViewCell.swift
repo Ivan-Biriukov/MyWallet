@@ -9,6 +9,12 @@ final class ButtonCollectionViewCell: UICollectionViewCell {
     
     static let id = "ButtonCollectionViewCell"
     
+    // MARK: - Constants
+    
+    private enum Constants {
+        static let titleLabelSideInsets: CGFloat = 5
+    }
+    
     // MARK: - Properties
     
     private var iseSelected: Bool = false
@@ -66,7 +72,7 @@ private extension ButtonCollectionViewCell {
     func setupConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(5)
+            make.leading.trailing.equalToSuperview().inset(Constants.titleLabelSideInsets)
         }
     }
     
