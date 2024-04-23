@@ -37,6 +37,7 @@ final class AuthentificationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         interactor.showInitData()
     }
 }

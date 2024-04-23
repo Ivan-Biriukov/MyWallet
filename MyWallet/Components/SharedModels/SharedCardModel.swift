@@ -11,6 +11,7 @@ struct SharedCardModel {
     var frontImage: UIImage?
     var backwardImage: UIImage?
     var isPersonalized: Bool
+    var isFavorite: Bool
 }
 
 // MARK: - CardCategory
