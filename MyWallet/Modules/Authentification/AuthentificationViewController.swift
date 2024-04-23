@@ -8,6 +8,7 @@ protocol DisplayAuthentification: AnyObject {
     func displayInitionalData(viewModel: AuthentificationView.ViewModel)
     func moveRegisterToFront()
     func moveLoginToFront()
+    func presentMainScreen()
 }
 
 // MARK: - AuthentificationViewController
@@ -36,6 +37,7 @@ final class AuthentificationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         interactor.showInitData()
     }
 }
@@ -43,6 +45,10 @@ final class AuthentificationViewController: UIViewController {
 // MARK: - Confirming to DisplayAuthentification
 
 extension AuthentificationViewController: DisplayAuthentification {
+    func presentMainScreen() {
+        interactor.presentMainScreen()
+    }
+    
     func displayInitionalData(viewModel: AuthentificationView.ViewModel) {
         contentView.configure(with: viewModel)
     }

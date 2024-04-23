@@ -49,7 +49,6 @@ final class AuthentificationView: UIView {
     }()
     
     private lazy var logoLabel = TextView()
-    
     private lazy var loginBubbleView = ViewWithBackgroundImage()
     private lazy var leftLoginBubbleTitleLabel = TextView()
     private lazy var moveToRegisterBubbleButton = MainButton()
@@ -112,11 +111,11 @@ private extension AuthentificationView {
     // MARK: - .addSubviews()
     
     func addSUbviews() {
-        [logoImage, logoLabel, registerBubbleView, loginBubbleView, bottomSectionSeparater, socialButtonsStack].forEach({self.addSubview($0)})
+        [logoImage, logoLabel, registerBubbleView, loginBubbleView, bottomSectionSeparater, socialButtonsStack, registerActionButton,  loginActionButton].forEach({self.addSubview($0)})
         
-        [leftLoginBubbleTitleLabel, moveToRegisterBubbleButton, leftBubbleLoginField, leftBubblePasswordField, passwordRecoveryButton, loginActionButton].forEach({loginBubbleView.addSubview($0)})
+        [leftLoginBubbleTitleLabel, moveToRegisterBubbleButton, leftBubbleLoginField, leftBubblePasswordField, passwordRecoveryButton].forEach({loginBubbleView.addSubview($0)})
         
-        [rightBubbleTitleLabel, moveToLoginBubbleButton, rightBubbleFieldsStack, registerActionButton].forEach({registerBubbleView.addSubview($0)})
+        [rightBubbleTitleLabel, moveToLoginBubbleButton, rightBubbleFieldsStack].forEach({registerBubbleView.addSubview($0)})
     }
     
     // MARK: - .setupConstraints()
@@ -210,11 +209,14 @@ private extension AuthentificationView {
         }
     }
     
-    func bubbleViewSelectingAnimation(for myView: UIView) {
+    func bubbleViewSelectingAnimation(for myView: UIView, viewTargetButton: UIView) {
         UIView.animate(withDuration: 0.35) {
             myView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
             myView.alpha = 0.9
+            viewTargetButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            viewTargetButton.alpha = 0.9
             self.bringSubviewToFront(myView)
+            self.bringSubviewToFront(viewTargetButton)
             for view in myView.subviews {
                 view.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
                 view.alpha = 0.9
@@ -224,6 +226,8 @@ private extension AuthentificationView {
             UIView.animate(withDuration: 0.35) {
                 myView.transform = .identity
                 myView.alpha = 1.0
+                viewTargetButton.transform = .identity
+                viewTargetButton.alpha = 1.0
                 for view in myView.subviews {
                     view.transform = .identity
                     view.alpha = 1.0
@@ -237,11 +241,11 @@ private extension AuthentificationView {
 
 extension AuthentificationView {
     func bringLoginBubleToFront() {
-        bubbleViewSelectingAnimation(for: loginBubbleView)
+        bubbleViewSelectingAnimation(for: loginBubbleView, viewTargetButton: loginActionButton)
     }
     
     func bringRegisterBubleToFront() {
-        bubbleViewSelectingAnimation(for: registerBubbleView)
+        bubbleViewSelectingAnimation(for: registerBubbleView, viewTargetButton: registerActionButton)
     }
 }
 

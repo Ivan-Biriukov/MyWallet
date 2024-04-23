@@ -35,4 +35,10 @@ final class MWImageAssets {
     static let loginFormBubbleInactive = getImage(named: "LoginInactive")
     static let registerFormBubbleActive = getImage(named: "RegisterActive")
     static let registerFormBubbleInactive = getImage(named: "RegisterInactive")
+    static let cardImagePlaceholder = getImage(named: "unidentifyedCard")
+    static let unFavorite = getImage(named: "unFavorite")
+    static let favorite = getImage(named: "favorite")
+    static let rotate = getImage(named: "rotate")
+    static let infoIcon = getImage(named: "info")
+    static let editIcon = getImage(named: "edit")
 }

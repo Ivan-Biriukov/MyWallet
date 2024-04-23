@@ -2,6 +2,8 @@
 
 import UIKit
 import SnapKit
+import AudioToolbox
+
 
 // MARK: - MainButton
 
@@ -57,6 +59,7 @@ final class MainButton: UIControl {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         stackView.point(inside: point, with: event) ? self : nil
     }
+    
     
     //MARK: Configure
     
@@ -117,6 +120,7 @@ private extension MainButton {
     // MARK: Actions
     
     @objc func buttonPressed() {
-       action?()
+        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {}
+        action?()
     }
 }

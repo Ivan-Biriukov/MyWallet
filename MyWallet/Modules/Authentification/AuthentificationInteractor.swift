@@ -6,6 +6,7 @@ import Foundation
 
 protocol AuthentificationBusinessLogic {
     func showInitData()
+    func presentMainScreen()
 }
 
 // MARK: - AuthentificationInteractor
@@ -26,6 +27,10 @@ final class AuthentificationInteractor {
 // MARK: - Confirming to interactor protocol
 
 extension AuthentificationInteractor: AuthentificationBusinessLogic {
+    func presentMainScreen() {
+        presenter.presentMainScreen()
+    }
+    
     func showInitData() {
         presenter.presentInitialData()
     }

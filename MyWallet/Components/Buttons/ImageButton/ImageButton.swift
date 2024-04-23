@@ -2,6 +2,7 @@
 
 import UIKit
 import SnapKit
+import AudioToolbox
 
 // MARK: - ImageButton
 
@@ -36,6 +37,7 @@ private extension ImageButton {
 
 private extension ImageButton {
     @objc func buttonPressed() {
+        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) {}
         action?()
     }
 }

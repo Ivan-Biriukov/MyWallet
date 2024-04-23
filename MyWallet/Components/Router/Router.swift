@@ -34,9 +34,14 @@ extension Router {
 // MARK: - Routes Extension
 
 extension Router: AuthentificationRoutes {
-    
     static func AUthentificationScreen() {
         performRoute(factory: AuthentificationFabric(), context: ())
+    }
+}
+
+extension Router: MainRoutes {
+    static func mainScreen() {
+        performRoute(factory: MainFabric(), context: ())
     }
 }
 
