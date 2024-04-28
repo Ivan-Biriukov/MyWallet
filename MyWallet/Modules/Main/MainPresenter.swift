@@ -63,6 +63,7 @@ final class MainPresenter {
                 ),
                 infoButton: .init(
                     image: MWImageAssets.infoIcon,
+                    action: Router.presentCardInfoScreen,
                     size: CGSize(width: 20, height: 20)
                 ),
                 edditButton: .init(

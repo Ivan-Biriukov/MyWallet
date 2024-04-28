@@ -41,4 +41,6 @@ final class MWImageAssets {
     static let rotate = getImage(named: "rotate")
     static let infoIcon = getImage(named: "info")
     static let editIcon = getImage(named: "edit")
+    static let closeIcon = getImage(named: "close")
+    static let chooseImageIcon = getImage(named: "addImagePlaceholder")
 }
