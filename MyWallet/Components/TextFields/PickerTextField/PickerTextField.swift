@@ -3,33 +3,22 @@
 import UIKit
 import SnapKit
 
-typealias PickerTextFieldDisplayNameHandler = ((Any) -> String)
-typealias PickerTextFieldItemSelectionHandler = ((Int, Any) -> Void)
-
 // MARK: - PickerTextField
 
 final class PickerTextField: UITextField {
 
     // MARK: - Properties
     
-    public var data: [Any] = [] {
-        didSet {
-            if let firstItem = data.first, firstItem is Array<Any> {
-                isMultiDimensional = true
-            } else {
-                isMultiDimensional = false
-            }
-        }
-    }
-
-
-    public var displayNameHandler: PickerTextFieldDisplayNameHandler?
-    public var itemSelectionHandler: PickerTextFieldItemSelectionHandler?
+    private var pickerViewData: [PickerSectionDataViewModel] = []
+    private var choosenTextValueResults: [String] = []
+    private var isDateFormatedTextNeeded: Bool = false
     
-    private var lastSelectedRow: Int?
-    private var isMultiDimensional: Bool = false
-
-    private lazy var pickerView = UIPickerView(frame: .zero)
+    private lazy var pickerView: UIPickerView = {
+        let picker = UIPickerView(frame: .zero)
+        picker.delegate = self
+        picker.dataSource = self
+        return picker
+    }()
     
     private lazy var toolBar: UIToolbar = {
         let bar = UIToolbar()
@@ -62,40 +51,20 @@ final class PickerTextField: UITextField {
 
 private extension PickerTextField {
     func configure() {
-        pickerView.delegate = self
-        pickerView.dataSource = self
         self.inputView = pickerView
-        
         toolBar.setItems([toolBarDoneButton, spaceForToolBar, toolBarCancelButton], animated: false)
         self.inputAccessoryView = toolBar
     }
     
-    func updateText() {
-        if lastSelectedRow == nil {
-            lastSelectedRow = 0
+    func getTextFromPicker(component: Int, row: Int) -> String {
+        if pickerViewData.count < 2 && pickerViewData.count != 0 {
+            return "\(pickerViewData.first!.data[row])"
+        } else {
+            return "\(pickerViewData[component].data[row])"
         }
-        
-        if lastSelectedRow! > data.count {
-            return
-        }
-        
-        let currentData = data[lastSelectedRow!]
-        self.text = displayNameHandler?(currentData)
-    }
-}
-
-// MARK: -
-
-extension PickerTextField: ViewModelConfigurable {
-    struct ViewModel {
-        let acceptButtonTitle: String?
-        let acceptButtonTintColor: UIColor?
-        let cancelButtonTitle: String?
-        let cancelButtonTintColor: UIColor?
-        let pickerData: [Any]
     }
     
-    func configure(with viewModel: ViewModel) {
+    func configurePickerView(with viewModel: PickerViewModel) {
         if let acceptButtonTitle = viewModel.acceptButtonTitle {
             toolBarDoneButton.title = acceptButtonTitle
         }
@@ -106,7 +75,102 @@ extension PickerTextField: ViewModelConfigurable {
         
         toolBarDoneButton.tintColor = viewModel.acceptButtonTintColor
         toolBarCancelButton.tintColor = viewModel.cancelButtonTintColor
-        data = viewModel.pickerData
+        pickerViewData = viewModel.pickerData
+        
+        if let pickerViewBackgroundColor = viewModel.pickerViewBackgroundColor {
+            pickerView.backgroundColor = pickerViewBackgroundColor
+        }
+        
+        if let toolbarBackgroundColor = viewModel.toolbarBackgroundColor {
+            toolBar.backgroundColor = toolbarBackgroundColor
+        }
+    }
+    
+    func configureTextField(with viewModel: TextFieldViewModel) {
+        self.backgroundColor = viewModel.backgroudColor
+        self.textColor = viewModel.textColor
+        self.font = viewModel.font
+        self.textAlignment = viewModel.aligment
+        self.isDateFormatedTextNeeded = viewModel.isDateFormatedTextNeeded
+        
+        if let borderWidth = viewModel.borderWidth {
+            self.layer.borderWidth = borderWidth
+        }
+        
+        if let borderColor = viewModel.borderColor {
+            self.layer.borderColor = borderColor
+        }
+        
+        if let cornerRadius = viewModel.cornerRadius {
+            self.layer.cornerRadius = cornerRadius
+        }
+        
+        if let attributedPlaceholder = viewModel.attributedPlaceholder {
+            self.attributedPlaceholder = attributedPlaceholder
+        }
+    }
+}
+
+// MARK: - ViewModelConfigurable
+
+extension PickerTextField: ViewModelConfigurable {
+    struct ViewModel {
+        let picker: PickerViewModel
+        let textField: TextFieldViewModel
+    }
+    
+    struct PickerViewModel {
+        let acceptButtonTitle: String?
+        let acceptButtonTintColor: UIColor?
+        let cancelButtonTitle: String?
+        let cancelButtonTintColor: UIColor?
+        let pickerViewBackgroundColor: UIColor?
+        let toolbarBackgroundColor: UIColor?
+        
+        var pickerData: [PickerSectionDataViewModel]
+    }
+    
+    struct PickerSectionDataViewModel {
+        var data: [Any]
+    }
+    
+    struct TextFieldViewModel {
+        let backgroudColor: UIColor
+        let borderWidth: CGFloat?
+        let borderColor: CGColor?
+        let cornerRadius: CGFloat?
+        let attributedPlaceholder: NSAttributedString?
+        let textColor: UIColor
+        let font: UIFont
+        let aligment: NSTextAlignment
+        let isDateFormatedTextNeeded: Bool
+        
+        init(
+            backgroudColor: UIColor = .clear,
+            borderWidth: CGFloat? = nil,
+            borderColor: CGColor? = nil,
+            cornerRadius: CGFloat? = nil,
+            attributedPlaceholder: NSAttributedString? = nil,
+            textColor: UIColor = .white,
+            font: UIFont = MWFonts.medium15,
+            aligment: NSTextAlignment = .center,
+            isDateFormatedTextNeede: Bool
+        ) {
+            self.backgroudColor = backgroudColor
+            self.borderWidth = borderWidth
+            self.borderColor = borderColor
+            self.cornerRadius = cornerRadius
+            self.attributedPlaceholder = attributedPlaceholder
+            self.textColor = textColor
+            self.font = font
+            self.aligment = aligment
+            self.isDateFormatedTextNeeded = isDateFormatedTextNeede
+        }
+    }
+    
+    func configure(with viewModel: ViewModel) {
+        configurePickerView(with: viewModel.picker)
+        configureTextField(with: viewModel.textField)
     }
 }
 
@@ -114,7 +178,16 @@ extension PickerTextField: ViewModelConfigurable {
 
 private extension PickerTextField {
     @objc func toolBarDoneTapped() {
-        updateText()
+        self.text = ""
+        if isDateFormatedTextNeeded {
+            for index in 0...choosenTextValueResults.count - 1 {
+                if index == choosenTextValueResults.count - 1 {
+                    self.text! += choosenTextValueResults[index]
+                } else {
+                    self.text! += choosenTextValueResults[index] + " - "
+                }
+            }
+        }
         self.resignFirstResponder()
     }
     
@@ -127,16 +200,8 @@ private extension PickerTextField {
 
 extension PickerTextField: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if isMultiDimensional {
-            if let componentData = data[component] as? [Any] {
-                if let rowComponent = componentData[row] as? [Any] {
-                    return "\(rowComponent)"
-                }
-            }
-        }
-        
-        let data = self.data[row]
-        return displayNameHandler?(data)
+        let currentData = pickerViewData[component].data[row]
+        return "\(currentData)"
     }
 }
 
@@ -144,26 +209,18 @@ extension PickerTextField: UIPickerViewDelegate {
 
 extension PickerTextField: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        if isMultiDimensional {
-            return data.count
-        } else {
-            return 1
-        }
+        return pickerViewData.count
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if isMultiDimensional {
-            if let componentData = data[component] as? [Any] {
-                return componentData.count
-            }
-        }
-        return data.count
+        return pickerViewData[component].data.count
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        lastSelectedRow = row
-        updateText()
-        let data = self.data[row]
-        itemSelectionHandler?(row, data)
+        if choosenTextValueResults.indices.contains(component) {
+            choosenTextValueResults[component] = getTextFromPicker(component: component, row: row)
+        } else {
+            choosenTextValueResults.insert(getTextFromPicker(component: component, row: row), at: component)
+        }
     }
 }

@@ -37,6 +37,7 @@ final class CardInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         interactor.showInitData()
+        hideKeyboardWhenTappedAround()
     }
 }
 
