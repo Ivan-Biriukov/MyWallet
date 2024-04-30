@@ -21,6 +21,15 @@ final class CardInfoView: UIView {
                 return UIScreen.main.bounds.height - 200
             }
         }
+        static let stacksHorizontalInsets: CGFloat = 15
+        static let stacksTopOffset: CGFloat = 20
+        static let expireDateFieldHeight: CGFloat = 30
+        static let expireDateStackTopOffset: CGFloat = 40
+        static let parentCategoryFieldHeight: CGFloat = 30
+        static let discriptionAreaHorizontalInsets: CGFloat = 25
+        static let discriptionAreaTopOffset: CGFloat = 10
+        static let discriptionAreaHeight: CGFloat = 100
+        static let mainActionButtonTopOffset: CGFloat = 30
     }
     
     // MARK: - Properties
@@ -197,47 +206,47 @@ private extension CardInfoView {
         }
         
         expireDateStack.snp.makeConstraints { make in
-            make.directionalHorizontalEdges.equalToSuperview().inset(15)
-            make.top.equalTo(imagesStack.snp.bottom).offset(40)
+            make.directionalHorizontalEdges.equalToSuperview().inset(Constants.stacksHorizontalInsets)
+            make.top.equalTo(imagesStack.snp.bottom).offset(Constants.expireDateStackTopOffset)
         }
         
         expireDateField.snp.makeConstraints { make in
-            make.height.equalTo(30)
+            make.height.equalTo(Constants.expireDateFieldHeight)
         }
         
         parentCategoryStack.snp.makeConstraints { make in
-            make.directionalHorizontalEdges.equalToSuperview().inset(15)
-            make.top.equalTo(expireDateStack.snp.bottom).offset(20)
+            make.directionalHorizontalEdges.equalToSuperview().inset(Constants.stacksHorizontalInsets)
+            make.top.equalTo(expireDateStack.snp.bottom).offset(Constants.stacksTopOffset)
         }
         
         parentCategoryField.snp.makeConstraints { make in
-            make.height.equalTo(30)
+            make.height.equalTo(Constants.parentCategoryFieldHeight)
         }
         
         personalizedStack.snp.makeConstraints { make in
-            make.directionalHorizontalEdges.equalToSuperview().inset(15)
-            make.top.equalTo(parentCategoryStack.snp.bottom).offset(20)
+            make.directionalHorizontalEdges.equalToSuperview().inset(Constants.stacksHorizontalInsets)
+            make.top.equalTo(parentCategoryStack.snp.bottom).offset(Constants.stacksTopOffset)
         }
         
         savedToFavoritesStack.snp.makeConstraints { make in
-            make.directionalHorizontalEdges.equalToSuperview().inset(15)
-            make.top.equalTo(personalizedStack.snp.bottom).offset(20)
+            make.directionalHorizontalEdges.equalToSuperview().inset(Constants.stacksHorizontalInsets)
+            make.top.equalTo(personalizedStack.snp.bottom).offset(Constants.stacksTopOffset)
         }
         
         discriptionLabel.snp.makeConstraints { make in
             make.directionalHorizontalEdges.equalToSuperview()
-            make.top.equalTo(savedToFavoritesStack.snp.bottom).offset(20)
+            make.top.equalTo(savedToFavoritesStack.snp.bottom).offset(Constants.stacksTopOffset)
         }
         
         discriptionArea.snp.makeConstraints { make in
-            make.directionalHorizontalEdges.equalToSuperview().inset(25)
-            make.top.equalTo(discriptionLabel.snp.bottom).offset(10)
-            make.height.equalTo(100)
+            make.directionalHorizontalEdges.equalToSuperview().inset(Constants.discriptionAreaHorizontalInsets)
+            make.top.equalTo(discriptionLabel.snp.bottom).offset(Constants.discriptionAreaTopOffset)
+            make.height.equalTo(Constants.discriptionAreaHeight)
         }
         
         mainActionButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(discriptionArea.snp.bottom).offset(30)
+            make.top.equalTo(discriptionArea.snp.bottom).offset(Constants.mainActionButtonTopOffset)
         }
     }
     

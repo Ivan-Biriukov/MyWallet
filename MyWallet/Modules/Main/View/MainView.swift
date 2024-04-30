@@ -12,8 +12,9 @@ final class MainView: UIView {
     private enum Constants {
         static let cardSectionHeight: CGFloat = 250
         static let allTagsSectionHeight: CGFloat = 50
-        static let searchBarTopInsets: CGFloat = 96
+        static let searchBarTopInsets: CGFloat = 70
         static let searchBarHeight: CGFloat = 44
+        static let tableViewTopOffsets: CGFloat = 8
     }
     
     // MARK: - Properties
@@ -71,7 +72,7 @@ private extension MainView {
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom)
+            make.top.equalTo(searchBar.snp.bottom).offset(Constants.tableViewTopOffsets)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }

@@ -44,4 +44,6 @@ final class MWPallete {
     static let toolbarDecline = getColor(named: "toolbarDecline")
     
     static let frame = getColor(named: "fieldFrameColor")
+    
+    static let tabBarBG = getColor(named: "tabBarBackground")
 }

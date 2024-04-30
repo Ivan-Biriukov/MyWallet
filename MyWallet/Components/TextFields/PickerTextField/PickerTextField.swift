@@ -187,6 +187,8 @@ private extension PickerTextField {
                     self.text! += choosenTextValueResults[index] + " - "
                 }
             }
+        } else {
+            self.text = choosenTextValueResults.first
         }
         self.resignFirstResponder()
     }
@@ -215,12 +217,23 @@ extension PickerTextField: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerViewData[component].data.count
     }
+  
+    //TODO: - Добить логику
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if choosenTextValueResults.indices.contains(component) {
             choosenTextValueResults[component] = getTextFromPicker(component: component, row: row)
         } else {
-            choosenTextValueResults.insert(getTextFromPicker(component: component, row: row), at: component)
+            if pickerViewData.count > 1 {
+                for i in 0..<component {
+                    if !choosenTextValueResults.indices.contains(i) {
+                        choosenTextValueResults.insert("\(pickerViewData[i].data[0])", at: i)
+                    }
+                }
+                choosenTextValueResults.insert(getTextFromPicker(component: component, row: row), at: component)
+            } else {
+                choosenTextValueResults.insert(getTextFromPicker(component: component, row: row), at: component)
+            }
         }
     }
 }

@@ -1,6 +1,11 @@
+// MARK: - Imports
+
 import UIKit
 
-class TabBarViewController: UITabBarController {
+// MARK: - TabBarViewController
+
+final class TabBarViewController: UITabBarController {
+    
     // MARK: - properties
     struct ViewModel {
         var vc: UIViewController
@@ -15,16 +20,24 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         viewControllers = vcArray
+        self.navigationController?.navigationBar.isHidden = true
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
 }
 
+// MARK: - flow funcs
+
 extension TabBarViewController {
-    // MARK: - flow funcs
+
     func configureVC(viewModels: [ViewModel]){
         vcArray = viewModels.map { viewModel in
             
@@ -38,7 +51,8 @@ extension TabBarViewController {
     }
     
     func setupUI() {
-        tabBar.backgroundColor = UIColor(red: 0.96, green: 0.97, blue: 0.98, alpha: 1)
+        tabBar.backgroundColor = MWPallete.tabBarBG
+        tabBar.unselectedItemTintColor = .yellow
         tabBar.layer.shadowOffset = CGSize(width: 0, height: -2)
         tabBar.layer.shadowColor = UIColor.black.cgColor
         tabBar.layer.shadowOpacity = 0.4
