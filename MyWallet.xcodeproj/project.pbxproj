@@ -60,6 +60,13 @@
 		57D678D52BD9D03B00B6E132 /* CardInfoFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678D42BD9D03B00B6E132 /* CardInfoFabric.swift */; };
 		57D678D72BDA634D00B6E132 /* ViewWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678D62BDA634D00B6E132 /* ViewWithTextView.swift */; };
 		57D678DB2BDD251100B6E132 /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678DA2BDD251100B6E132 /* PickerTextField.swift */; };
+		57D678DE2BE177DA00B6E132 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678DD2BE177DA00B6E132 /* FavoritesViewController.swift */; };
+		57D678E12BE1783900B6E132 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678E02BE1783900B6E132 /* FavoritesView.swift */; };
+		57D678E32BE1788900B6E132 /* FavoritesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678E22BE1788900B6E132 /* FavoritesInteractor.swift */; };
+		57D678E52BE1790800B6E132 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678E42BE1790800B6E132 /* FavoritesPresenter.swift */; };
+		57D678E72BE1798900B6E132 /* FavoritesRouters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678E62BE1798900B6E132 /* FavoritesRouters.swift */; };
+		57D678E92BE179A700B6E132 /* FavoritesFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678E82BE179A700B6E132 /* FavoritesFabric.swift */; };
+		57D678EB2BE197CD00B6E132 /* PlaceholderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678EA2BE197CD00B6E132 /* PlaceholderTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +124,13 @@
 		57D678D42BD9D03B00B6E132 /* CardInfoFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInfoFabric.swift; sourceTree = "<group>"; };
 		57D678D62BDA634D00B6E132 /* ViewWithTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithTextView.swift; sourceTree = "<group>"; };
 		57D678DA2BDD251100B6E132 /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
+		57D678DD2BE177DA00B6E132 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		57D678E02BE1783900B6E132 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		57D678E22BE1788900B6E132 /* FavoritesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesInteractor.swift; sourceTree = "<group>"; };
+		57D678E42BE1790800B6E132 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
+		57D678E62BE1798900B6E132 /* FavoritesRouters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRouters.swift; sourceTree = "<group>"; };
+		57D678E82BE179A700B6E132 /* FavoritesFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesFabric.swift; sourceTree = "<group>"; };
+		57D678EA2BE197CD00B6E132 /* PlaceholderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +189,7 @@
 			children = (
 				57D6783F2BC5B82300B6E132 /* Authentification */,
 				57D678A22BD0477C00B6E132 /* Main */,
+				57D678DC2BE177B800B6E132 /* Favorites */,
 				57D678C82BD9CDD600B6E132 /* CardInfo */,
 			);
 			path = Modules;
@@ -414,6 +429,7 @@
 			children = (
 				57D678C12BD80D5700B6E132 /* SingleItemTableViewCell.swift */,
 				57D678C42BD8120300B6E132 /* ImputCollectionTableViewCell.swift */,
+				57D678EA2BE197CD00B6E132 /* PlaceholderTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -453,6 +469,27 @@
 				57D678DA2BDD251100B6E132 /* PickerTextField.swift */,
 			);
 			path = PickerTextField;
+			sourceTree = "<group>";
+		};
+		57D678DC2BE177B800B6E132 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				57D678DD2BE177DA00B6E132 /* FavoritesViewController.swift */,
+				57D678DF2BE1782700B6E132 /* View */,
+				57D678E22BE1788900B6E132 /* FavoritesInteractor.swift */,
+				57D678E42BE1790800B6E132 /* FavoritesPresenter.swift */,
+				57D678E62BE1798900B6E132 /* FavoritesRouters.swift */,
+				57D678E82BE179A700B6E132 /* FavoritesFabric.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		57D678DF2BE1782700B6E132 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57D678E02BE1783900B6E132 /* FavoritesView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -533,7 +570,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57D678E32BE1788900B6E132 /* FavoritesInteractor.swift in Sources */,
 				57D678BD2BD5C1D900B6E132 /* SizeCalculatorHelper.swift in Sources */,
+				57D678E52BE1790800B6E132 /* FavoritesPresenter.swift in Sources */,
 				57D678562BC9D14E00B6E132 /* MWFonts.swift in Sources */,
 				57D6784D2BC5F5F400B6E132 /* AuthentificationRoutes.swift in Sources */,
 				57D678C02BD5CB1B00B6E132 /* CollectionReusableView.swift in Sources */,
@@ -553,6 +592,7 @@
 				57D6784B2BC5F29C00B6E132 /* AuthentificationPresenter.swift in Sources */,
 				57D678AB2BD0492E00B6E132 /* MainPresenter.swift in Sources */,
 				57D678D52BD9D03B00B6E132 /* CardInfoFabric.swift in Sources */,
+				57D678E12BE1783900B6E132 /* FavoritesView.swift in Sources */,
 				57D678CA2BD9CDFA00B6E132 /* CardInfoViewController.swift in Sources */,
 				57D6786E2BCABDBA00B6E132 /* TextFieldViewModel.swift in Sources */,
 				57D678752BCC8BA800B6E132 /* ImageButton.swift in Sources */,
@@ -560,10 +600,13 @@
 				57D678422BC5BD4200B6E132 /* AuthentificationView.swift in Sources */,
 				57D678A72BD0485D00B6E132 /* MainView.swift in Sources */,
 				57D678A42BD047D100B6E132 /* MainViewController.swift in Sources */,
+				57D678E92BE179A700B6E132 /* FavoritesFabric.swift in Sources */,
+				57D678EB2BE197CD00B6E132 /* PlaceholderTableViewCell.swift in Sources */,
 				57BBF7E22BAF4933007EC31E /* SharedCardModel.swift in Sources */,
 				57D678A12BCEE8BA00B6E132 /* ViewWithBackgroundImage.swift in Sources */,
 				57D6784F2BC5F66B00B6E132 /* AuthentificationFabric.swift in Sources */,
 				57D678AD2BD049C200B6E132 /* MainRoutes.swift in Sources */,
+				57D678E72BE1798900B6E132 /* FavoritesRouters.swift in Sources */,
 				57BBF7DE2BAF46B6007EC31E /* Router.swift in Sources */,
 				57D678582BC9F3FC00B6E132 /* MWImageAssets.swift in Sources */,
 				57D678472BC5C96600B6E132 /* AuthentificationViewController.swift in Sources */,
@@ -577,6 +620,7 @@
 				57D678452BC5C7AD00B6E132 /* ViewModelConfigurable.swift in Sources */,
 				57BBF7DB2BAF46AA007EC31E /* TabBarFactory.swift in Sources */,
 				57D678692BCA8C4500B6E132 /* String+Extensions.swift in Sources */,
+				57D678DE2BE177DA00B6E132 /* FavoritesViewController.swift in Sources */,
 				57D6785A2BC9F55400B6E132 /* TextView.swift in Sources */,
 				57D678602BC9F70F00B6E132 /* TextViewViewModel.swift in Sources */,
 				57BBF7BC2BAF430E007EC31E /* SceneDelegate.swift in Sources */,

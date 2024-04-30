@@ -68,7 +68,7 @@ extension Router {
                 selectedImage: MWImageAssets.getScaledImage(named: "homeIcon", width: 25, height: 25).withTintColor(.purple)
             ),
             .init(
-                vc: UIViewController(),
+                vc: FavoritesFabric().build(from: ()),
                 title: "Favorites",
                 image: MWImageAssets.getScaledImage(named: "favoritesIcon", width: 25, height: 25),
                 selectedImage: MWImageAssets.getScaledImage(named: "favoritesIcon", width: 25, height: 25)
