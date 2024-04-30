@@ -22,6 +22,13 @@ extension Router {
         
         navigationController.pushViewController(viewController, animated: animated)
     }
+    
+    static func performPopUpRoute<F>(factory: F, context: F.Context, animated: Bool = true) where F: Factory, F.ViewController: UIViewController {
+        let vc = factory.build(from: context)
+        vc.modalPresentationStyle = .popover
+        
+        navigationController.present(vc, animated: true)
+    }
 }
 
 // MARK: - Start Screen
@@ -42,6 +49,12 @@ extension Router: AuthentificationRoutes {
 extension Router: MainRoutes {
     static func mainScreen() {
         performRoute(factory: MainFabric(), context: ())
+    }
+}
+
+extension Router: CardInfoRoutes {
+    static func presentCardInfoScreen() {
+        performPopUpRoute(factory: CardInfoFabric(), context: ())
     }
 }
 

@@ -34,4 +34,14 @@ final class MWPallete {
     
     /// Use for underline view (for current selected view)
     static let underlineView = getColor(named: "UnderlineBg")
+    
+    static let pickerViewBG = getColor(named: "pickerbg")
+    
+    static let toolbarBG = getColor(named: "toolbarBG")
+    
+    static let toolbarAccept = getColor(named: "toolbarAccept")
+    
+    static let toolbarDecline = getColor(named: "toolbarDecline")
+    
+    static let frame = getColor(named: "fieldFrameColor")
 }
