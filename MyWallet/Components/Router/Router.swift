@@ -58,4 +58,36 @@ extension Router: CardInfoRoutes {
     }
 }
 
+extension Router {
+    static func showMainTabBarController() {
+        let screens: [TabBarViewController.ViewModel] = [
+            .init(
+                vc: MainFabric().build(from: ()),
+                title: "Home",
+                image: MWImageAssets.getScaledImage(named: "homeIcon", width: 25, height: 25),
+                selectedImage: MWImageAssets.getScaledImage(named: "homeIcon", width: 25, height: 25).withTintColor(.purple)
+            ),
+            .init(
+                vc: UIViewController(),
+                title: "Favorites",
+                image: MWImageAssets.getScaledImage(named: "favoritesIcon", width: 25, height: 25),
+                selectedImage: MWImageAssets.getScaledImage(named: "favoritesIcon", width: 25, height: 25)
+            ),
+            .init(
+                vc: UIViewController(),
+                title: "Add New Card",
+                image: MWImageAssets.getScaledImage(named: "addCardIcon", width: 25, height: 25),
+                selectedImage: MWImageAssets.getScaledImage(named: "addCardIcon", width: 25, height: 25)
+            ),
+            .init(
+                vc: UIViewController(),
+                title: "Settings",
+                image: MWImageAssets.getScaledImage(named: "settingsIcon", width: 25, height: 25),
+                selectedImage: MWImageAssets.getScaledImage(named: "settingsIcon", width: 25, height: 25)
+            )
+        ]
 
+        let tabbarController = TabBarFactory().build(from: screens)
+        navigationController.pushViewController(tabbarController, animated: true)
+    }
+}

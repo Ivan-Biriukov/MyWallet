@@ -289,6 +289,6 @@ extension AuthentificationPresenter: PresentsAuthentificationInfo {
 
 extension AuthentificationPresenter {
     func presentMainScreen() {
-        Router.mainScreen()
+        Router.showMainTabBarController()
     }
 }
