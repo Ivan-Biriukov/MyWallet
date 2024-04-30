@@ -82,16 +82,21 @@ extension CardInfoPresenter: PresentsCardInfo {
     func presentInitialData() {
         viewController?.displayInitionalData(viewModel:
                 .init(
+                    edditButtonViewModel: .init(
+                        image: MWImageAssets.editIcon,
+                        size: CGSize(width: 35, height: 35)
+                    ),
                     closeButtonViewModel: .init(
                         image: MWImageAssets.closeIcon,
-                        size: CGSize(width: 45, height: 45)
+                        size: CGSize(width: 35, height: 35)
                     ),
                     titleLabelViewModel: .init(
                         text: "Красное и белое",
                         textColor: MWPallete.inactiveText,
-                        font: MWFonts.bold30,
+                        font: MWFonts.bold20,
                         capitalizations: .words,
-                        size: CGSize(width: SizeCalculatorHelper.screenWidth() - 100, height: 40)
+                        textAligment: .center,
+                        size: CGSize(width: SizeCalculatorHelper.screenWidth() - 100, height: 35)
                     ),
                     frontImageButton: .init(
                         image: MWImageAssets.chooseImageIcon,

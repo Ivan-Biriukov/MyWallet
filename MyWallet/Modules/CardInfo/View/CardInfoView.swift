@@ -14,12 +14,40 @@ final class CardInfoView: UIView {
         static let titleLabelTopInsets: CGFloat = 50
         static let imagesStackTopOffset: CGFloat = 20
         static let imageStackHorizontalInsets: CGFloat = 5
+        static var scrollViewContentViewHeight: CGFloat {
+            if UIScreen.main.bounds.height <= 700 {
+                return 750
+            } else {
+                return UIScreen.main.bounds.height - 200
+            }
+        }
     }
     
     // MARK: - Properties
     
+    private var isUserInteractiveEnabled: Bool = false
+    
+    private lazy var contentScrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.contentSize = CGSize(width: SizeCalculatorHelper.screenWidth(), height: SizeCalculatorHelper.screenHeight() + 600)
+        scroll.alwaysBounceVertical = true
+        return scroll
+    }()
+    
+    private lazy var inScrollContainer: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    private lazy var edditButton = ImageButton()
     private lazy var closeButton = ImageButton()
     private lazy var titleLabel = ViewWithTextView()
+    
+    private lazy var titleStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [edditButton, titleLabel, closeButton])
+        stack.axis = .horizontal
+        return stack
+    }()
     
     private lazy var frontCardImageButton = ImageButton()
     private lazy var backwardCardImageButton = ImageButton()
@@ -111,13 +139,26 @@ final class CardInfoView: UIView {
     
     init() {
         super.init(frame: .zero)
-        addSUbviews()
+        addSubviews()
         setupConstraints()
         initialSetup()
+        allowEdditing(depends: isUserInteractiveEnabled)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Internal Methods
+    
+    func moveUpContent(with offset: CGFloat) {
+        if discriptionArea.isFirstResponder {
+            contentScrollView.contentOffset = CGPoint(x: 0, y: offset)
+        }
+    }
+    
+    func restoreStandartScrollPosition() {
+        contentScrollView.contentOffset = .zero
     }
 }
 
@@ -127,25 +168,31 @@ private extension CardInfoView {
     
     // MARK: - .addSubviews()
     
-    func addSUbviews() {
-        [closeButton, titleLabel, imagesStack, expireDateStack, parentCategoryStack, personalizedStack, savedToFavoritesStack, discriptionLabel, discriptionArea, mainActionButton].forEach({self.addSubview($0)})
+    func addSubviews() {
+        addSubview(contentScrollView)
+        contentScrollView.addSubview(inScrollContainer)
+        [titleStackView, imagesStack, expireDateStack, parentCategoryStack, personalizedStack, savedToFavoritesStack, discriptionLabel, discriptionArea, mainActionButton].forEach({inScrollContainer.addSubview($0)})
     }
     
     // MARK: - .setupConstraints()
     
     func setupConstraints() {
-        closeButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Constants.closeButtonInsets)
-            make.trailing.equalToSuperview().inset(Constants.closeButtonInsets)
+        contentScrollView.snp.makeConstraints { make in
+            make.directionalHorizontalEdges.directionalVerticalEdges.equalTo(safeAreaLayoutGuide)
         }
         
-        titleLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(Constants.titleLabelTopInsets)
+        inScrollContainer.snp.makeConstraints { make in
+            make.leading.trailing.top.bottom.width.equalToSuperview()
+            make.height.equalTo(Constants.scrollViewContentViewHeight)
+        }
+        
+        titleStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(Constants.closeButtonInsets)
+            make.directionalHorizontalEdges.equalToSuperview().inset(Constants.closeButtonInsets)
         }
         
         imagesStack.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(Constants.imagesStackTopOffset)
+            make.top.equalTo(titleStackView.snp.bottom).offset(Constants.imagesStackTopOffset)
             make.directionalHorizontalEdges.equalToSuperview().inset(Constants.imageStackHorizontalInsets)
         }
         
@@ -190,13 +237,14 @@ private extension CardInfoView {
         
         mainActionButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(safeAreaLayoutGuide).inset(20)
+            make.top.equalTo(discriptionArea.snp.bottom).offset(30)
         }
     }
     
     func initialSetup() {
         backgroundColor = MWPallete.authBackground
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        edditButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
     }
     
     func configureDiscriptionTextView(with viewModel: DiscriptionTextViewModel) {
@@ -224,7 +272,21 @@ private extension CardInfoView {
         discriptionArea.backgroundColor = viewModel.backgroundColor
         discriptionArea.font = viewModel.font
         discriptionArea.textAlignment = viewModel.aligment
+    }
     
+    func allowEdditing(depends on: Bool) {
+        titleLabel.isEditable = on
+        titleLabel.isSelectable = on
+        titleLabel.isUserInteractionEnabled = on
+        frontCardImageButton.isEnabled = on
+        backwardCardImageButton.isEnabled = on
+        expireDateField.isEnabled = on
+        parentCategoryField.isEnabled = on
+        personalizedSwitch.isEnabled = on
+        savedToFavoritesSwitch.isEnabled = on
+        discriptionArea.isEditable = on
+        discriptionArea.isSelectable = on
+        mainActionButton.isEnabled = on
     }
 }
 
@@ -234,12 +296,18 @@ private extension CardInfoView {
     @objc func closeButtonTapped() {
         
     }
+    
+    @objc func editButtonTapped() {
+        isUserInteractiveEnabled = !isUserInteractiveEnabled
+        allowEdditing(depends: isUserInteractiveEnabled)
+    }
 }
 
 // MARK: - ViewModelConfigurable
 
 extension CardInfoView: ViewModelConfigurable {
     struct ViewModel {
+        let edditButtonViewModel: ImageButton.ViewModel
         let closeButtonViewModel: ImageButton.ViewModel
         let titleLabelViewModel: ViewWithTextView.ViewModel
         let frontImageButton: ImageButton.ViewModel
@@ -272,6 +340,7 @@ extension CardInfoView: ViewModelConfigurable {
     }
     
     func configure(with viewModel: ViewModel) {
+        edditButton.configure(with: viewModel.edditButtonViewModel)
         closeButton.configure(with: viewModel.closeButtonViewModel)
         titleLabel.configure(with: viewModel.titleLabelViewModel)
         frontCardImageButton.configure(with: viewModel.frontImageButton)

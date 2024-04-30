@@ -38,6 +38,11 @@ final class CardInfoViewController: UIViewController {
         super.viewDidLoad()
         interactor.showInitData()
         hideKeyboardWhenTappedAround()
+        registerForKeyBoardNotification()
+    }
+    
+    deinit {
+        removeKeyboardNotification()
     }
 }
 
@@ -46,6 +51,31 @@ final class CardInfoViewController: UIViewController {
 extension CardInfoViewController: DisplayCardInfo {
     func displayInitionalData(viewModel: CardInfoView.ViewModel) {
         contentView.configure(with: viewModel)
+    }
+}
+
+// MARK: - KeyBoardNotifications
+
+private extension CardInfoViewController {
+    func registerForKeyBoardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func kbWillShow(_ notification: Notification) {
+        let userInfo = notification.userInfo
+        let keyboardFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        
+        contentView.moveUpContent(with: keyboardFrameSize.height)
+    }
+    
+    @objc func kbWillHide() {
+        contentView.restoreStandartScrollPosition()
     }
 }
 
