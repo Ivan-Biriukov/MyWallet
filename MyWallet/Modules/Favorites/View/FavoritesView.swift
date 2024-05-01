@@ -20,6 +20,8 @@ final class FavoritesView: UIView {
     
     // MARK: - Private properties
     
+    private var isSearched: Bool = false
+    private var tableViewSearchedData: [SingleItemTableViewCell.ViewModel] = []
     private var tableViewData: [SingleItemTableViewCell.ViewModel] = []
     
     private lazy var titleLabel = TextView()
@@ -27,13 +29,15 @@ final class FavoritesView: UIView {
     private lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.searchBarStyle = .minimal
+        bar.showsCancelButton = true
+        bar.delegate = self
         return bar
     }()
     
     private lazy var tableView: UITableView = {
         let tb = UITableView()
-        tb.delegate = self
         tb.dataSource = self
+        tb.delegate = self
         tb.backgroundColor = .clear
         tb.register(SingleItemTableViewCell.self, forCellReuseIdentifier: SingleItemTableViewCell.identifire)
         tb.register(PlaceholderTableViewCell.self, forCellReuseIdentifier: PlaceholderTableViewCell.identifire)
@@ -52,7 +56,6 @@ final class FavoritesView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 // MARK: - Configure
@@ -93,7 +96,12 @@ extension FavoritesView: UITableViewDataSource {
         if tableViewData.isEmpty {
             return 1
         } else {
-            return tableViewData.count
+            switch isSearched {
+            case true:
+                return tableViewSearchedData.count
+            case false:
+                return tableViewData.count
+            }
         }
     }
     
@@ -109,14 +117,22 @@ extension FavoritesView: UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            let currentCell = tableViewData[indexPath.row]
-            
-            cell.configure(with: currentCell)
-            
+            switch isSearched {
+            case true:
+                let currentCell = tableViewSearchedData[indexPath.row]
+                cell.configure(with: currentCell)
+            case false:
+                let currentCell = tableViewData[indexPath.row]
+                cell.configure(with: currentCell)
+            }
             return cell
         }
     }
-    
+}
+
+// MARK: - UITableViewDelegate
+
+extension FavoritesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableViewData.isEmpty {
             return Constants.tableViewCellHeightForEptyData
@@ -126,10 +142,29 @@ extension FavoritesView: UITableViewDataSource {
     }
 }
 
-// MARK: - UITableView Delegate
+// MARK: - UISearchBar Delegate
 
-extension FavoritesView: UITableViewDelegate {
+extension FavoritesView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText != "" {
+            tableViewSearchedData = tableViewData.filter({$0.titleLabel.text.lowercased().uppercased().prefix(searchText.count) == searchText.lowercased().uppercased()})
+            isSearched = true
+        } else {
+            isSearched = false
+        }
+        tableView.reloadSections([0], with: .fade)
+    }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        isSearched = false
+        tableView.reloadSections([0], with: .fade)
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
 
 // MARK: - ViewModelConfigurable

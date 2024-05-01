@@ -43,7 +43,7 @@ final class MainPresenter {
     private func stubsForSingleItemCell() -> [SingleItemTableViewCell.ViewModel] {
         var result: [SingleItemTableViewCell.ViewModel] = []
         
-        for _ in 0...10 {
+        for _ in 0...5 {
             result.append(.init(
                 parrentCategory: .alcohol_stores,
                 cardImage: .init(),
@@ -72,6 +72,67 @@ final class MainPresenter {
                 )
             ))
         }
+        
+        for _ in 0...3 {
+            result.append(.init(
+                parrentCategory: .groceries,
+                cardImage: .init(),
+                reverseButton: .init(
+                    image: MWImageAssets.rotate,
+                    size: CGSize(width: 20, height: 20)
+                ),
+                titleLabel: .init(
+                    style: .bold(size: 25),
+                    text: "Пятерочка",
+                    textColor: MWPallete.inactiveText,
+                    isShadowed: false
+                ),
+                favoriteButton: .init(
+                    image: MWImageAssets.favorite,
+                    size: CGSize(width: 60, height: 60)
+                ),
+                infoButton: .init(
+                    image: MWImageAssets.infoIcon,
+                    action: Router.presentCardInfoScreen,
+                    size: CGSize(width: 20, height: 20)
+                ),
+                edditButton: .init(
+                    image: MWImageAssets.editIcon,
+                    size: CGSize(width: 20, height: 20)
+                )
+            ))
+        }
+        
+        for _ in 0...2 {
+            result.append(.init(
+                parrentCategory: .tobacco,
+                cardImage: .init(),
+                reverseButton: .init(
+                    image: MWImageAssets.rotate,
+                    size: CGSize(width: 20, height: 20)
+                ),
+                titleLabel: .init(
+                    style: .bold(size: 25),
+                    text: "Мир кальянов",
+                    textColor: MWPallete.inactiveText,
+                    isShadowed: false
+                ),
+                favoriteButton: .init(
+                    image: MWImageAssets.favorite,
+                    size: CGSize(width: 60, height: 60)
+                ),
+                infoButton: .init(
+                    image: MWImageAssets.infoIcon,
+                    action: Router.presentCardInfoScreen,
+                    size: CGSize(width: 20, height: 20)
+                ),
+                edditButton: .init(
+                    image: MWImageAssets.editIcon,
+                    size: CGSize(width: 20, height: 20)
+                )
+            ))
+        }
+        
         return result
     }
     
