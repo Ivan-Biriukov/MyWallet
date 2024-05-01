@@ -2,43 +2,26 @@
 
 import Foundation
 
-// MARK: - PresentsMain
+// MARK: - PresentsFavorites
 
-protocol PresentsMain {
-    func presentInitialData()
+protocol PresentsFavorites {
+    func presentInitialScreenData()
 }
 
-// MARK: - MainPresenter
+// MARK: - FavoritesPresenter
 
-final class MainPresenter {
+final class FavoritesPresenter {
     
     // MARK: - Properties
     
-    weak var viewController: DisplayMain?
+    weak var viewController: DisplayFavorites?
     
     // MARK: - Init
     
-    init(viewController: DisplayMain? = nil) {
+    init(viewController: DisplayFavorites? = nil) {
         self.viewController = viewController
     }
-    
-    // MARK: - Stubs Methods
-    
-    private func stubsForScrolledCells() -> [ButtonCollectionViewCell.ViewModel] {
-        var result: [ButtonCollectionViewCell.ViewModel] = []
-        
-        let casesNames = CardCategory.allCases.map({"\($0.rawValue)"})
-        
-        for card in 0...casesNames.count - 1 {
-            result.append(.init(
-                title: casesNames[card],
-                font: MWFonts.bold20,
-                defaultTextColor: MWPallete.inactiveText,
-                selectedTextColor: MWPallete.activeText
-            ))
-        }
-        return result
-    }
+    // MARK: - Methods
     
     private func stubsForSingleItemCell() -> [SingleItemTableViewCell.ViewModel] {
         var result: [SingleItemTableViewCell.ViewModel] = []
@@ -75,7 +58,7 @@ final class MainPresenter {
         
         for _ in 0...3 {
             result.append(.init(
-                parrentCategory: .groceries,
+                parrentCategory: .alcohol_stores,
                 cardImage: .init(),
                 reverseButton: .init(
                     image: MWImageAssets.rotate,
@@ -105,7 +88,7 @@ final class MainPresenter {
         
         for _ in 0...2 {
             result.append(.init(
-                parrentCategory: .tobacco,
+                parrentCategory: .alcohol_stores,
                 cardImage: .init(),
                 reverseButton: .init(
                     image: MWImageAssets.rotate,
@@ -135,46 +118,21 @@ final class MainPresenter {
         
         return result
     }
-    
-    private func stubForHeader(with titles: [String]) -> [MainView.SetionHeaderViewData] {
-        var result: [MainView.SetionHeaderViewData] = []
-        
-        for title in titles {
-            result.append(.init(
-                width: SizeCalculatorHelper.screenWidth(),
-                height: 22,
-                labelFont: MWFonts.bold20,
-                labelText: title,
-                labelTextColor: MWPallete.activeText,
-                labelTextAligment: .center
-            ))
-        }
-        return result
-    }
 }
 
 // MARK: - PresentsAuthentificationInfo
 
-extension MainPresenter: PresentsMain {
-    func presentInitialData() {
+extension FavoritesPresenter: PresentsFavorites {
+    func presentInitialScreenData() {
         viewController?.displayInitionalData(
             viewModel: .init(
-                backgroundColor: MWPallete.mainBackground,
-                tableData: .init(
-                    scrolledCells: [
-                        .init(
-                            scrollDirection: .horizontal,
-                            backgroudColor: .clear,
-                            collectionInsets: .init(
-                                verticalInsets: 5,
-                                horizontalInsets: 5
-                            ),
-                            collectionData: stubsForScrolledCells()
-                        )
-                    ],
-                    signleItemsCells: stubsForSingleItemCell(),
-                    headersForSection: stubForHeader(with: ["Search by Category", "Avalible Cards"])
-                )
+                titleLabel: .init(
+                    style: .bold(size: 30),
+                    text: "Favorites",
+                    textColor: MWPallete.inactiveText,
+                    isShadowed: true
+                ),
+                favoritsData: stubsForSingleItemCell()
             )
         )
     }

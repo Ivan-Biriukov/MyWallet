@@ -20,10 +20,15 @@ final class MainView: UIView {
     // MARK: - Properties
     
     private var tableData: TableViewModel = .init()
+    private var tableViewSearchedData: [SingleItemTableViewCell.ViewModel] = []
+    private var tableViewFiltredData: [SingleItemTableViewCell.ViewModel] = []
+    private var isFiltredAndSearchedDataEvalible: Bool = false
     
     private lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.searchBarStyle = .minimal
+        bar.showsCancelButton = true
+        bar.delegate = self
         return bar
     }()
     
@@ -126,6 +131,15 @@ extension MainView: UITableViewDelegate {
             tableView.endUpdates()
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return Constants.allTagsSectionHeight
+        default:
+            return Constants.cardSectionHeight
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -141,7 +155,11 @@ extension MainView: UITableViewDataSource {
         case 0:
             return tableData.scrolledCells?.count ?? 0
         case 1:
-            return tableData.signleItemsCells?.count ?? 0
+            if isFiltredAndSearchedDataEvalible {
+                return tableViewSearchedData.count
+            } else {
+                return tableData.signleItemsCells?.count ?? 0
+            }
         default:
             return 0
         }
@@ -165,26 +183,49 @@ extension MainView: UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            if let currentCellData = tableData.signleItemsCells?[indexPath.row] {
-                cell.configure(with: currentCellData)
+            if isFiltredAndSearchedDataEvalible {
+                let currentCell = tableViewSearchedData[indexPath.row]
+                cell.configure(with: currentCell)
+            } else {
+                if let currentCellData = tableData.signleItemsCells?[indexPath.row] {
+                    cell.configure(with: currentCellData)
+                }
             }
-            
+        
             return cell
             
         default:
             return UITableViewCell()
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            return Constants.allTagsSectionHeight
-        default:
-            return Constants.cardSectionHeight
+}
+
+// MARK: - SeatchBarDelegate
+
+extension MainView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText != "" {
+            tableViewSearchedData = (tableData.signleItemsCells?.filter({$0.titleLabel.text.lowercased().uppercased().prefix(searchText.count) == searchText.lowercased().uppercased()}))!
+            isFiltredAndSearchedDataEvalible = true
+            tableView.reloadSections([1], with: .fade)
+        } else {
+            isFiltredAndSearchedDataEvalible = false
+            tableView.reloadSections([1], with: .fade)
         }
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        isFiltredAndSearchedDataEvalible = false
+        tableView.reloadSections([1], with: .fade)
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
+
 // MARK: - ViewModelConfigurable
 
 extension MainView: ViewModelConfigurable {
