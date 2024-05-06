@@ -2,24 +2,24 @@
 
 import UIKit
 
-// MARK: - DisplayCardInfo
+// MARK: - DisplayCreateNewCard
 
-protocol DisplayCardInfo: AnyObject {
-    func displayInitionalData(viewModel: CardInfoView.ViewModel)
+protocol DisplayCreateNewCard: AnyObject {
+    func displayInitionalData(viewModel: CreateCardView.ViewModel)
 }
 
-// MARK: - CardInfoViewController
+// MARK: - CreateCardViewController
 
-final class CardInfoViewController: UIViewController {
+final class CreateNewCardViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    private let contentView = CardInfoView()
-    private let interactor: CardInfoBusinessLogic
+    private let contentView = CreateCardView()
+    private let interactor: CreateNewCardBusinessLogic
     
     // MARK: - Init
     
-    init(interactor: CardInfoBusinessLogic) {
+    init(interactor: CreateNewCardBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
@@ -28,35 +28,34 @@ final class CardInfoViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        removeKeyboardNotification()
+    }
+    
     // MARK: - Life Cycle Methods
     
     override func loadView() {
-        view = contentView
+        view = contentView 
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor.showInitData()
-        hideKeyboardWhenTappedAround()
+        interactor.showData()
         registerForKeyBoardNotification()
-    }
-    
-    deinit {
-        removeKeyboardNotification()
     }
 }
 
-// MARK: - Confirming to DisplayCardInfo
+// MARK: - Confirming to DisplayCreateNewCard
 
-extension CardInfoViewController: DisplayCardInfo {
-    func displayInitionalData(viewModel: CardInfoView.ViewModel) {
+extension CreateNewCardViewController: DisplayCreateNewCard {
+    func displayInitionalData(viewModel: CreateCardView.ViewModel) {
         contentView.configure(with: viewModel)
     }
 }
 
 // MARK: - KeyBoardNotifications
 
-private extension CardInfoViewController {
+private extension CreateNewCardViewController {
     func registerForKeyBoardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)

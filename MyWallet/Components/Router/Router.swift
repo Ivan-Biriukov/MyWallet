@@ -74,7 +74,7 @@ extension Router {
                 selectedImage: MWImageAssets.getScaledImage(named: "favoritesIcon", width: 25, height: 25)
             ),
             .init(
-                vc: UIViewController(),
+                vc: CreateNewCardFabric().build(from: ()),
                 title: "Add New Card",
                 image: MWImageAssets.getScaledImage(named: "addCardIcon", width: 25, height: 25),
                 selectedImage: MWImageAssets.getScaledImage(named: "addCardIcon", width: 25, height: 25)

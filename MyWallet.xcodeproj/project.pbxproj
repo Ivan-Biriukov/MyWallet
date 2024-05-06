@@ -67,6 +67,12 @@
 		57D678E72BE1798900B6E132 /* FavoritesRouters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678E62BE1798900B6E132 /* FavoritesRouters.swift */; };
 		57D678E92BE179A700B6E132 /* FavoritesFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678E82BE179A700B6E132 /* FavoritesFabric.swift */; };
 		57D678EB2BE197CD00B6E132 /* PlaceholderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678EA2BE197CD00B6E132 /* PlaceholderTableViewCell.swift */; };
+		57D678F42BE2EA8F00B6E132 /* CreateCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678F32BE2EA8F00B6E132 /* CreateCardViewController.swift */; };
+		57D678F62BE2EB8E00B6E132 /* CreateNewCardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678F52BE2EB8E00B6E132 /* CreateNewCardInteractor.swift */; };
+		57D678F82BE2EBDD00B6E132 /* CreateNewCardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678F72BE2EBDD00B6E132 /* CreateNewCardPresenter.swift */; };
+		57D678FA2BE2ED8600B6E132 /* CreateNewCardRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678F92BE2ED8600B6E132 /* CreateNewCardRoutes.swift */; };
+		57D678FC2BE2EDB400B6E132 /* CreateNewCardFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678FB2BE2EDB400B6E132 /* CreateNewCardFabric.swift */; };
+		57D678FF2BE30C0F00B6E132 /* CreateCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D678FE2BE30C0F00B6E132 /* CreateCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +137,12 @@
 		57D678E62BE1798900B6E132 /* FavoritesRouters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRouters.swift; sourceTree = "<group>"; };
 		57D678E82BE179A700B6E132 /* FavoritesFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesFabric.swift; sourceTree = "<group>"; };
 		57D678EA2BE197CD00B6E132 /* PlaceholderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTableViewCell.swift; sourceTree = "<group>"; };
+		57D678F32BE2EA8F00B6E132 /* CreateCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardViewController.swift; sourceTree = "<group>"; };
+		57D678F52BE2EB8E00B6E132 /* CreateNewCardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCardInteractor.swift; sourceTree = "<group>"; };
+		57D678F72BE2EBDD00B6E132 /* CreateNewCardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCardPresenter.swift; sourceTree = "<group>"; };
+		57D678F92BE2ED8600B6E132 /* CreateNewCardRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCardRoutes.swift; sourceTree = "<group>"; };
+		57D678FB2BE2EDB400B6E132 /* CreateNewCardFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCardFabric.swift; sourceTree = "<group>"; };
+		57D678FE2BE30C0F00B6E132 /* CreateCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +202,7 @@
 				57D6783F2BC5B82300B6E132 /* Authentification */,
 				57D678A22BD0477C00B6E132 /* Main */,
 				57D678DC2BE177B800B6E132 /* Favorites */,
+				57D678F22BE2EA6D00B6E132 /* CreateNewCard */,
 				57D678C82BD9CDD600B6E132 /* CardInfo */,
 			);
 			path = Modules;
@@ -492,6 +505,27 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		57D678F22BE2EA6D00B6E132 /* CreateNewCard */ = {
+			isa = PBXGroup;
+			children = (
+				57D678F32BE2EA8F00B6E132 /* CreateCardViewController.swift */,
+				57D678FD2BE30BEC00B6E132 /* View */,
+				57D678F52BE2EB8E00B6E132 /* CreateNewCardInteractor.swift */,
+				57D678F72BE2EBDD00B6E132 /* CreateNewCardPresenter.swift */,
+				57D678F92BE2ED8600B6E132 /* CreateNewCardRoutes.swift */,
+				57D678FB2BE2EDB400B6E132 /* CreateNewCardFabric.swift */,
+			);
+			path = CreateNewCard;
+			sourceTree = "<group>";
+		};
+		57D678FD2BE30BEC00B6E132 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57D678FE2BE30C0F00B6E132 /* CreateCardView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -572,6 +606,7 @@
 			files = (
 				57D678E32BE1788900B6E132 /* FavoritesInteractor.swift in Sources */,
 				57D678BD2BD5C1D900B6E132 /* SizeCalculatorHelper.swift in Sources */,
+				57D678F82BE2EBDD00B6E132 /* CreateNewCardPresenter.swift in Sources */,
 				57D678E52BE1790800B6E132 /* FavoritesPresenter.swift in Sources */,
 				57D678562BC9D14E00B6E132 /* MWFonts.swift in Sources */,
 				57D6784D2BC5F5F400B6E132 /* AuthentificationRoutes.swift in Sources */,
@@ -581,6 +616,7 @@
 				57D678C52BD8120300B6E132 /* ImputCollectionTableViewCell.swift in Sources */,
 				57D6786C2BCABDA200B6E132 /* TextField.swift in Sources */,
 				57BBF7DA2BAF46AA007EC31E /* TabBarViewContoller.swift in Sources */,
+				57D678F62BE2EB8E00B6E132 /* CreateNewCardInteractor.swift in Sources */,
 				57D678C22BD80D5700B6E132 /* SingleItemTableViewCell.swift in Sources */,
 				57D678A92BD048B900B6E132 /* MainInteractor.swift in Sources */,
 				57D678542BC9CD1A00B6E132 /* MWPallete.swift in Sources */,
@@ -609,8 +645,11 @@
 				57D678E72BE1798900B6E132 /* FavoritesRouters.swift in Sources */,
 				57BBF7DE2BAF46B6007EC31E /* Router.swift in Sources */,
 				57D678582BC9F3FC00B6E132 /* MWImageAssets.swift in Sources */,
+				57D678FA2BE2ED8600B6E132 /* CreateNewCardRoutes.swift in Sources */,
 				57D678472BC5C96600B6E132 /* AuthentificationViewController.swift in Sources */,
 				57BBF7BA2BAF430E007EC31E /* AppDelegate.swift in Sources */,
+				57D678FC2BE2EDB400B6E132 /* CreateNewCardFabric.swift in Sources */,
+				57D678F42BE2EA8F00B6E132 /* CreateCardViewController.swift in Sources */,
 				57D678CD2BD9CE9300B6E132 /* CardInfoView.swift in Sources */,
 				57D678CF2BD9CEDD00B6E132 /* CardInfoInteractor.swift in Sources */,
 				57D678722BCC867E00B6E132 /* MWSizeHelper.swift in Sources */,
@@ -622,6 +661,7 @@
 				57D678692BCA8C4500B6E132 /* String+Extensions.swift in Sources */,
 				57D678DE2BE177DA00B6E132 /* FavoritesViewController.swift in Sources */,
 				57D6785A2BC9F55400B6E132 /* TextView.swift in Sources */,
+				57D678FF2BE30C0F00B6E132 /* CreateCardView.swift in Sources */,
 				57D678602BC9F70F00B6E132 /* TextViewViewModel.swift in Sources */,
 				57BBF7BC2BAF430E007EC31E /* SceneDelegate.swift in Sources */,
 				57D678AF2BD04A0C00B6E132 /* MainFabric.swift in Sources */,
@@ -694,7 +734,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -751,7 +791,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
